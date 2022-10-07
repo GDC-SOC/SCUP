@@ -133,6 +133,12 @@ settings.json
 
 # Apache conf
 conf/*
+SCUP/conf/*
 
 # Static files
 static/*
+
+# Django migrations
+home/migrations/*
+SCUP/migrations/*
+migrations/*
