@@ -1,7 +1,13 @@
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-<link rel="stylesheet" href="{% static 'home/style.css' %}">
+<head>
+    <link rel="stylesheet" href="{% static 'home/style.css' %}">
+</head>
 
-<h1>SCUP</h1>
-<h2><i>Science Community User Portal</i></h2>
-<p>{{ top_bio }}</p>
+<body>
+    <img id="gdc-logo" src="{% static 'home/GDC_logo_wide.png' %}" alt="GDC logo">
+    <h2><i>Science Community User Portal</i></h2>
+    <p>{{ top_bio }}</p>
+</body>
