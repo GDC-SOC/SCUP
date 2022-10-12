@@ -31,9 +31,9 @@ except:
     SECRET_KEY = ""
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = SETTINGS_JSON_PARSED['DEBUG']
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [SETTINGS_JSON_PARSED['HOST']]
 
 
 # Application definition
@@ -86,8 +86,12 @@ WSGI_APPLICATION = 'SCUP.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': SETTINGS_JSON_PARSED['PGDB'],
+        'USER': SETTINGS_JSON_PARSED['PGUSER'],
+        'PASSWORD': SETTINGS_JSON_PARSED['PGPASS'],
+        'HOST': SETTINGS_JSON_PARSED['PGHOST'],
+        'PORT': SETTINGS_JSON_PARSED['PGPORT']
     }
 }
 
