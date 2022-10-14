@@ -62,7 +62,7 @@ ROOT_URLCONF = 'SCUP.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [Path(BASE_DIR) / "data" / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,12 +83,8 @@ WSGI_APPLICATION = 'SCUP.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': SETTINGS_JSON_PARSED['PGDB'],
-        'USER': SETTINGS_JSON_PARSED['PGUSER'],
-        'PASSWORD': SETTINGS_JSON_PARSED['PGPASS'],
-        'HOST': SETTINGS_JSON_PARSED['PGHOST'],
-        'PORT': SETTINGS_JSON_PARSED['PGPORT']
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3'
     }
 }
 
