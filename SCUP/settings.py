@@ -39,6 +39,7 @@ ALLOWED_HOSTS = [SETTINGS_JSON_PARSED['HOST']]
 # Application definition
 
 INSTALLED_APPS = [
+    'home',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -62,7 +63,10 @@ ROOT_URLCONF = 'SCUP.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [Path(BASE_DIR) / "data" / "templates"],
+        'DIRS': [
+            Path(BASE_DIR) / "home" / "templates",
+            Path(BASE_DIR) / "data" / "templates"
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
