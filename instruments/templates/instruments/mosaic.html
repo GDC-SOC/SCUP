@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block title %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'instruments/style.css' %}">
 <title>MoSAIC</title>
 {% endblock %}
 
@@ -28,6 +30,6 @@
 {% endblock %}
 
 {% block content %}
-<h2>MoSAIC</h2>
-<p> {{ bio }}
+<img class="rounded" id="instrument-logo" src="{% static 'instruments/mosaic.png' %}" alt="MoSAIC logo">
+<p> {{ bio }} </p>
 {% endblock %}
