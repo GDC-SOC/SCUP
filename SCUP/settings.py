@@ -66,8 +66,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             Path(BASE_DIR) / "home" / "templates",
-            Path(BASE_DIR) / "data" / "templates",
             Path(BASE_DIR) / "instruments" / "templates",
+            Path(BASE_DIR) / "data" / "templates",
             Path(BASE_DIR) / "SCUP" / "templates"
         ],
         'APP_DIRS': True,
@@ -90,8 +90,12 @@ WSGI_APPLICATION = 'SCUP.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3'
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': SETTINGS_JSON_PARSED['PGDB'],
+        'USER': SETTINGS_JSON_PARSED['PGUSER'],
+        'PASSWORD': SETTINGS_JSON_PARSED['PGPASS'],
+        'HOST': SETTINGS_JSON_PARSED['PGHOST'],
+        'PORT': SETTINGS_JSON_PARSED['PGPORT']
     }
 }
 
@@ -132,6 +136,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    Path(BASE_DIR) / "home" / "static",
+    Path(BASE_DIR) / "instruments" / "static",
+    Path(BASE_DIR) / "data" / "static"
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
