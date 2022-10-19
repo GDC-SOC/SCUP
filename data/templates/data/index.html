@@ -36,22 +36,56 @@
 <script src="{% static 'data/api.js' %}"></script>
 
 <h1>Science Data Archive</h1>
+
 <div class="accordion" id="dataAccordion">
+    <!-- GDC-1 Data -->
     <div class="accordion-item">
         <h2 class="accordion-header" id="dataGDC1Header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGDC1" aria-expanded="false" aria-controls="collapseGDC1" onclick="getData()">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGDC1" aria-expanded="false" aria-controls="collapseGDC1">
                 GDC-1
             </button>
         </h2>
         <div id="collapseGDC1" class="accordion-collapse collapse" aria-labelledby="dataGDC1Header" data-bs-parent="#dataAccordion">
             <div class="accordion-body">
-                <div class="spinner-border text-primary" id="data-loading" role="status">
-                    <span class="visually-hidden">Loading...</span>
+                <div class="accordion" id="gdc1InstrumentsAccordion">
+                <!-- GDC-1 CAPE -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="gdc1CAPEHeader">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGDC1" aria-expanded="false" aria-controls="collapseGDC1">
+                            CAPE
+                        </button>
+                    </h2>
                 </div>
-                <ul class="list-group list-gorup-flush" id="data-list"></ul>
+                <!-- GDC-1 AETHER -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="gdc1AETHERHeader">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGDC1" aria-expanded="false" aria-controls="collapseGDC1">
+                            AETHER
+                        </button>
+                    </h2>
+                </div>
+                <!-- GDC-1 MoSAIC -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="gdc1MoSAICHeader">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGDC1" aria-expanded="false" aria-controls="collapseGDC1">
+                            MoSAIC
+                        </button>
+                    </h2>
+                </div>
+                <!-- GDC-1 EPHEM -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="gdc1EPHEMHeader">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGDC1" aria-expanded="false" aria-controls="collapseGDC1">
+                            EPHEMs
+                        </button>
+                    </h2>
+                </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- GDC-2 Data -->
     <div class="accordion-item">
         <h2 class="accordion-header" id="dataGDC2Header">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGDC2" aria-expanded="false" aria-controls="collapseGDC2" onclick="getData()">
@@ -67,6 +101,8 @@
             </div>
         </div>
     </div>
+
+    <!-- GDC-3 Data -->
     <div class="accordion-item">
         <h2 class="accordion-header" id="dataGDC3Header">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGDC3" aria-expanded="false" aria-controls="collapseGDC3" onclick="getData()">
@@ -82,6 +118,8 @@
             </div>
         </div>
     </div>
+
+    <!-- GDC-4 Data -->
     <div class="accordion-item">
         <h2 class="accordion-header" id="dataGDC4Header">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGDC4" aria-expanded="false" aria-controls="collapseGDC4" onclick="getData()">
@@ -97,6 +135,8 @@
             </div>
         </div>
     </div>
+
+    <!-- GDC-5 Data -->
     <div class="accordion-item">
         <h2 class="accordion-header" id="dataGDC5Header">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGDC5" aria-expanded="false" aria-controls="collapseGDC5" onclick="getData()">
@@ -112,6 +152,8 @@
             </div>
         </div>
     </div>
+
+    <!-- GDC-6 Data -->
     <div class="accordion-item">
         <h2 class="accordion-header" id="dataGDC6Header">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGDC6" aria-expanded="false" aria-controls="collapseGDC6" onclick="getData()">
