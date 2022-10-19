@@ -40,4 +40,13 @@ function getData() {
     }
 }
 
-function getData2(gdcSat)
+function stepThrough(currentElement) {
+    let currentElementText = currentElement.innerText;
+    let gdcRegex = /^GDC-\d$/;
+
+    if (currentElementText.match(gdcRegex)) {
+        // Replace the list elements with the subtype list
+        $(currentElement.parentElement).empty();
+        $(currentElement.parentElement).appendHTML(subtypeList);
+    }
+}
