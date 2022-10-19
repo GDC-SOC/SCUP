@@ -40,6 +40,7 @@ ALLOWED_HOSTS = [SETTINGS_JSON_PARSED['HOST']]
 
 INSTALLED_APPS = [
     'home',
+    'instruments',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -65,7 +66,9 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             Path(BASE_DIR) / "home" / "templates",
-            Path(BASE_DIR) / "data" / "templates"
+            Path(BASE_DIR) / "data" / "templates",
+            Path(BASE_DIR) / "instruments" / "templates",
+            Path(BASE_DIR) / "SCUP" / "templates"
         ],
         'APP_DIRS': True,
         'OPTIONS': {

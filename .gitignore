@@ -142,3 +142,4 @@ static/*
 home/migrations/*
 SCUP/migrations/*
 migrations/*
+instruments/migrations/*
