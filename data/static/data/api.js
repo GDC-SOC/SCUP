@@ -39,3 +39,5 @@ function getData() {
         alert(error); // TODO - Change this to a Bootstrap notif/toast
     }
 }
+
+function getData2(gdcSat)
