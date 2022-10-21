@@ -37,59 +37,53 @@
 
 <h1>Science Data Archive</h1>
 
-<div id="alerts"></div>
+<div class="container-md" id="dataForms">
+  <div id="alerts"></div>
+  <div class="dataForm">
+    <label class="my-1 mr-2" for="selectGDC">GDC-#</label>
+    <select class="custom-select my-1 mr-sm-2" id="selectGDC">
+      <option value="0"></option>
+      <option value="1">GDC-1</option>
+      <option value="2">GDC-2</option>
+      <option value="3">GDC-3</option>
+      <option value="4">GDC-4</option>
+      <option value="5">GDC-5</option>
+      <option value="6">GDC-6</option>
+    </select>
+  </div>
 
-<label class="my-1 mr-2" for="selectGDC">GDC-#</label>
-<select class="custom-select my-1 mr-sm-2" id="selectGDC">
-  <option value="0"></option>
-  <option value="1">GDC-1</option>
-  <option value="2">GDC-2</option>
-  <option value="3">GDC-3</option>
-  <option value="4">GDC-4</option>
-  <option value="5">GDC-5</option>
-  <option value="6">GDC-6</option>
-</select>
+  <div class="dataForm">
+    <label class="my-1 mr-2" for="selectDataType">Data Type</label>
+    <select class="custom-select my-1 mr-sm-2" id="selectDataType">
+      <option value="0"></option>
+      <option value="1">AETHER</option>
+      <option value="2">CAPE</option>
+      <option value="3">MoSAIC</option>
+      <option value="4">EPHEM</option>
+    </select>
+  </div>
 
-<label class="my-1 mr-2" for="selectDataType">Data Type</label>
-<select class="custom-select my-1 mr-sm-2" id="selectDataType">
-  <option value="0"></option>
-  <option value="1">AETHER</option>
-  <option value="2">CAPE</option>
-  <option value="3">MoSAIC</option>
-  <option value="4">EPHEM</option>
-</select>
+  <div class="dataForm">
+    <label class="my-1 mr-2" for="selectDataLevel">Data Level</label>
+    <select class="custom-select my-1 mr-sm-2" id="selectDataLevel">
+      <option value="0"></option>
+      <option value="1">QL</option>
+      <option value="2">L0</option>
+      <option value="3">L1</option>
+      <option value="4">L2</option>
+    </select>
+  </div>
 
-<label class="my-1 mr-2" for="selectDataLevel">Data Level</label>
-<select class="custom-select my-1 mr-sm-2" id="selectDataLevel">
-  <option value="0"></option>
-  <option value="1">QL</option>
-  <option value="2">L0</option>
-  <option value="3">L1</option>
-  <option value="4">L2</option>
-</select>
+  <div class="dataForm">
+    <label class="my-1 mr-2" for="selectDate">Date</label>
+    <input type="date" id="selectDate" name="selectDate" value="">
+  </div>
+</div>
 
-<label class="my-1 mr-2" for="selectDate">Date</label>
-<input type="date" id="selectDate" name="selectDate" value="">
+<div id="dataSubmitContainer" class="container-md">
+  <button type="button" id="dataSubmit" class="btn btn-primary center" onclick="dataSubmit()">Submit</button>
+</div>
 
-<button type="button" class="btn btn-primary" onclick="dataSubmit()">Submit</button>
-
-<ul id="dataList" class="list-group">
-</ul>
-<!--
-<nav aria-label="breadcrumb" style="padding-left: 10px;">
-    <ol id="data-breadcrumbs" class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page">Data</li>
-    </ol>
-  </nav>  
-
-<ul id="dataList" class="list-group">
-    <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">GDC-1</button>
-    <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">GDC-2</button>
-    <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">GDC-3</button>
-    <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">GDC-4</button>
-    <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">GDC-5</button>
-    <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">GDC-6</button>  
-</ul>
--->
+<ul id="dataList" class="list-group"></ul>
 
 {% endblock %}
