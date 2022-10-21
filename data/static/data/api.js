@@ -2,6 +2,7 @@
  * This scripts contains helper functions for the data page on the SCUP.
  */
 
+/** Load the tooltips */
 const API_URL = "https://5puisoo9r8.execute-api.us-east-1.amazonaws.com";
 const GDC_LIST = `
 <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">GDC-1</button>
@@ -135,3 +136,8 @@ function dataSubmit() {
     let requestParams = [selectGDC, selectDataType, selectDataLevel, selectYear, selectMonth, selectDay];
     getFiles($("#dataList"), requestParams);
 }
+
+$(document).ready(() => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+});
