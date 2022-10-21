@@ -91,10 +91,16 @@ function getFiles(parentElement, requestParams) {
         .then((response) => { return response.json(); })
         .then((data) => { 
             parentElement.empty();
-            data.forEach((item, index) => {
-                let itemFilename = item.split("/").pop();
-                parentElement.append('<li class="list-group-item"><a href="#" onclick="generatePresignedURL(\''+item+'\')">'+itemFilename+'</a></li>');
-            });
+            if (data.length > 0) {
+                data.forEach((item, index) => {
+                    let itemFilename = item.split("/").pop();
+                    parentElement.append('<li class="list-group-item"><a href="#" onclick="generatePresignedURL(\''+item+'\')">'+itemFilename+'</a></li>');
+                });
+            } else {
+                parentElement.append(`<div class="alert alert-warning" role="alert">
+                No data was found for the given request!
+                </div>`);
+            }
         })
     } catch (error) {
         alert(error); // TODO - Change this to a Bootstrap notif/toast
