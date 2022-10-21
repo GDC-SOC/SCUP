@@ -61,8 +61,8 @@ function convertMonth(monthInt) {
  * @param {str} item 
  */
 function generatePresignedURL(item) {
-    $("#alerts").empty();
-    $("#alerts").append(SPINNER);
+    $("#dataList").empty();
+    $("#dataList").append(SPINNER);
     try {
         fetch(API_URL + "/prod/generatepresignedurl?key=" + item, {method: "GET"})
         .then((response) => { return response.json() })
@@ -121,8 +121,8 @@ function dataSubmit() {
     if (selectDate == "") { invalidForms.push("Date"); }
     // If there were invalid forms, create an alert
     if (invalidForms.length > 0) {
-        $("#alerts").empty();
-        $("#alerts").append(`<div class="alert alert-danger" role="alert">
+        $("#dataList").empty();
+        $("#dataList").append(`<div class="alert alert-danger" role="alert">
         The following values were invalid: ${invalidForms.join(", ")}
       </div>`)
         return;
