@@ -14,7 +14,7 @@ const SUBTYPE_LIST = `
     <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">CAPE</button>
     <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">AETHER</button>
     <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">MoSAIC</button>
-    <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">Ephem</button>`
+    <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">EPHEM</button>`
 const DATA_LEVEL_LIST = `
 <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">QL</button>
 <button type="button" class="list-group-item list-group-item-action" onclick="stepThrough(this)">L0</button>
@@ -23,13 +23,46 @@ const DATA_LEVEL_LIST = `
 const GDC_REGEX = /^GDC-\d$/;
 const SUBTYPE_REGEX = /^(CAPE|AETHER|MoSAIC|EPHEM)$/;
 const DATA_LEVEL_REGEX = /^(QL|L0|L1|L2|)$/;
+const SPINNER = `<div class="spinner-border text-primary" role="status">
+<span class="visually-hidden">Loading...</span>
+</div>`
+
+function convertMonth(monthInt) {
+    switch(monthInt) {
+        case "01":
+            return "JAN";
+        case "02":
+            return "FEB";
+        case "03":
+            return "MAR";
+        case "04":
+            return "APR";
+        case "05":
+            return "MAY";
+        case "06":
+            return "JUN";
+        case "07":
+            return "JUL";
+        case "08":
+            return "AUG";
+        case "09":
+            return "SEP";
+        case "10":
+            return "OCT";
+        case "11":
+            return "NOV";
+        case "12":
+            return "DEC";
+    }
+}
 
 /**
  * Retrieves a presigned url for the given item using the API.
  * @param {str} item 
  */
 function generatePresignedURL(item) {
-    console.log("Starting generatePresignedURL...");
+    $("#alerts").empty();
+    $("#alerts").append(SPINNER);
     try {
         fetch(API_URL + "/prod/generatepresignedurl?key=" + item, {method: "GET"})
         .then((response) => { return response.json() })
@@ -40,58 +73,59 @@ function generatePresignedURL(item) {
 }
 
 /**
- * Retrieves all data stored in the S3 bucket using the API.
+ * Retrieves all the data contained in the S3 bucket, using the given request parameters. Specifically grabs the files and ignores any subdirectories.
+ * requestParams is an array of strings, expected as [gdc, subtype, data level], for example ['GDC-1', 'CAPE', 'L2'].
+ * @param {element} parentElement 
+ * @param {Array[str]} requestParams 
  */
-function getData() {
-    console.log("Starting getData...");
+function getFiles(parentElement, requestParams) {
+    console.log("Sending request...");
+    let gdc = requestParams.shift();
+    let subtype = requestParams.shift();
+    let datalevel = requestParams.shift();
+    let year = requestParams.shift();
+    let month = requestParams.shift();
+    let day = requestParams.shift();
     try {
-        fetch(API_URL + "/prod/listgdcdata", {method: "GET"})
-        .then((response) => { return response.json() })
-        .then((data) => { return JSON.parse(data.body); })
-        .then((parsedData) => {
-            $("#data-list").empty();
-            $("#data-loading").remove();
-            parsedData.forEach((item, index) => {
-                $("#data-list").append('<li class="list-group-item"><a href="#" onclick="generatePresignedURL(\''+item+'\')">'+item+'</a></li>');
-            })
+        fetch(API_URL + "/prod/listgdcdata?gdc=" + gdc + "&subtype=" + subtype + "&datalevel=" + datalevel + "&year=" + year + "&month=" + month + "&day=" + day + "&type=f", {method: "GET"})
+        .then((response) => { return response.json(); })
+        .then((data) => { 
+            parentElement.empty();
+            data.forEach((item, index) => {
+                let itemFilename = item.split("/").pop();
+                parentElement.append('<li class="list-group-item"><a href="#" onclick="generatePresignedURL(\''+item+'\')">'+itemFilename+'</a></li>');
+            });
         })
     } catch (error) {
         alert(error); // TODO - Change this to a Bootstrap notif/toast
     }
 }
 
-function stepThrough(currentElement) {
-    let wasContentUpdated = false;
-    let currentElementText = currentElement.innerText;
-    let parentElement = $(currentElement.parentElement);
-    if (currentElementText.match(GDC_REGEX)) {
-        // Update the list group
-        parentElement.empty();
-        parentElement.append(SUBTYPE_LIST);
-        wasContentUpdated = true;
-        // Update the breadcrumb view
-    } else if (currentElementText.match(SUBTYPE_REGEX)) {
-        parentElement.empty();
-        parentElement.append(DATA_LEVEL_LIST);
-        wasContentUpdated = true;
-    } else if (currentElementText.match(DATA_LEVEL_REGEX)) {
-        parentElement.empty();
-        // Actuall start loading data from the API
-        wasContentUpdated = true;
+function dataSubmit() {
+    // Retrieve values
+    let selectGDC = $("#selectGDC").find(":selected").text();
+    let selectDataType = $("#selectDataType").find(":selected").text();
+    let selectDataLevel = $("#selectDataLevel").find(":selected").text();
+    let selectDate = $("#selectDate").val();
+    let invalidForms = [];
+    // Validate
+    if (selectGDC == "") { invalidForms.push("GDC"); }
+    if (selectDataType == "") { invalidForms.push("Data Type"); }
+    if (selectDataLevel == "") { invalidForms.push("Data Level"); }
+    if (selectDate == "") { invalidForms.push("Date"); }
+    // If there were invalid forms, create an alert
+    if (invalidForms.length > 0) {
+        $("#alerts").empty();
+        $("#alerts").append(`<div class="alert alert-danger" role="alert">
+        The following values were invalid: ${invalidForms.join(", ")}
+      </div>`)
+        return;
     }
-
-    if (wasContentUpdated === true) {
-        let lastBreadcrumbText = $("#data-breadcrumbs").children().last()[0].innerHTML;
-        $("#data-breadcrumbs").children().last().removeClass('active');
-        $("#data-breadcrumbs").children().last().replaceWith(`<li class="breadcrumb-item"><a href="">` + lastBreadcrumbText + `</a></li>`);
-        $("#data-breadcrumbs").append(`<li class="breadcrumb-item active" aria-current="page">` + currentElementText + `</li>`);
-    }
-}
-
-function stepBack(currentElement) {
-    /** TODO */
-    let currentElementText = currentElement.innerText;
-    $("#data-breadcrumbs").children().last().remove();
-    $("#data-breadcrumbs").children().last().addClass("active");
-    $("#data-breadcrumbs").children().last().replaceWith(`<li class="breadcrumb-item">` + lastBreadcrumbText + `</li>`);
+    $("#dataList").append(SPINNER);
+    selectDate = selectDate.split("-");
+    let selectYear = selectDate.shift();
+    let selectMonth = convertMonth(selectDate.shift());
+    let selectDay = selectDate.shift();
+    let requestParams = [selectGDC, selectDataType, selectDataLevel, selectYear, selectMonth, selectDay];
+    getFiles($("#dataList"), requestParams);
 }
