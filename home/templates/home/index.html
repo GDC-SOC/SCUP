@@ -8,14 +8,14 @@
         <meta name="author" content="" />
         <title>SCUP</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="/static/home/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="{% static 'home/favicon.ico' %}" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="static/home/css/styles.css" rel="stylesheet" />
+        <link href="{% static 'home/css/styles.css' %}" rel="stylesheet" />
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -31,6 +31,7 @@
                         <li class="nav-item"><a class="nav-link" href="#sciteam">Science Team</a></li>
                         <li class="nav-item"><a class="nav-link" href="#instteam">Instrument Teams</a></li>
                         <li class="nav-item"><a class="nav-link" href="#timeline">Timeline</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/data">Browse Data</a></li>
                     </ul>
                 </div>
             </div>
@@ -39,6 +40,7 @@
         <header class="masthead">
             <div class="container">
                 <div class="masthead-heading text-uppercase">Geospace Dynamics Constellation</div>
+                <div class="masthead-subheading">Science Community User Portal</div>
             </div>
         </header>
         <!-- Home-->
@@ -86,22 +88,31 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="/static/home/assets/img/team/1.jpg" alt="..." />
-                            <h4>AETHER</h4>
+                            <p><a href="/instruments/aether"><img class="rounded" 
+                                src="{% static 'home/assets/img/team/aether.png' %}" 
+                                alt="AETHER Team Logo" />
+                            </a></p>
+                            <h4><a href="/instruments/aether">AETHER</a></h4>
                             <p class="text-muted">Atmospheric Electrodynamics probe for THERmal plasma</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="/static/home/assets/img/team/2.jpg" alt="..." />
-                            <h4>CAPE</h4>
+                            <p><a href="/instruments/cape"><img class="rounded" 
+                                src="{% static 'home/assets/img/team/cape.png' %}" 
+                                alt="CAPE Team Logo" />
+                            </a></p>
+                            <h4><a href="/instruments/cape">CAPE</a></h4>
                             <p class="text-muted">Comprehensive Auroral Precipitation Experiment</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="/static/home/assets/img/team/3.jpg" alt="..." />
-                            <h4>MoSAIC</h4>
+                            <p><a href="/instruments/mosaic"><img class="rounded" 
+                                src="{% static 'home/assets/img/team/mosaic.png' %}" 
+                                alt="MoSAIC Team Logo" />
+                            </a></p>
+                            <h4><a href="/instruments/mosaic">MoSAIC</a></h4>
                             <p class="text-muted">Modular Spectrometer for Atmosphere and Ionosphere Characterization</p>
                         </div>
                     </div>
@@ -120,7 +131,7 @@
                 </div>
                 <ul class="timeline">
                     <li>
-                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="/static/home/assets/img/about/1.jpg" alt="..." /></div>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="{% static 'home/assets/img/about/1.jpg' %}" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4>2009-2011</h4>
@@ -130,7 +141,7 @@
                         </div>
                     </li>
                     <li class="timeline-inverted">
-                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="/static/home/assets/img/about/2.jpg" alt="..." /></div>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="{% static 'home/assets/img/about/2.jpg' %}" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4>March 2011</h4>
@@ -140,7 +151,7 @@
                         </div>
                     </li>
                     <li>
-                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="/static/home/assets/img/about/3.jpg" alt="..." /></div>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="{% static 'home/assets/img/about/3.jpg' %}" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4>December 2015</h4>
@@ -150,7 +161,7 @@
                         </div>
                     </li>
                     <li class="timeline-inverted">
-                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="/static/home/assets/img/about/4.jpg" alt="..." /></div>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="{% static 'home/assets/img/about/4.jpg' %}" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4>July 2020</h4>
@@ -174,13 +185,9 @@
             </div>
         </section>
         <!-- Timeline -->
+        <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script src="{% static 'home/js/scripts.js' %}"></script>
     </body>
 </html>
