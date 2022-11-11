@@ -1,45 +1,61 @@
-{% extends "base.html" %}
-
-{% block title %}
+<!DOCTYPE html>
 {% load static %}
-<script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="{% static 'data/style.css' %}">
-<title>SCUP Data</title>
-{% endblock %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{% static 'home/favicon.ico' %}" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- CSS -->
+    <link href="{% static 'home/css/styles.css' %}" rel="stylesheet" />
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+    {% block title %}{% endblock %}
+</head>
+<title>GDC Data</title>
+<body id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+      <div class="container">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              Menu
+              <i class="fas fa-bars ms-1"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                  <li class="nav-item"><a class="nav-link" href="/#about">About GDC</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/#sciteam">Science Team</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/#instteam">Instrument Teams</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/#timeline">Timeline</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/data">Browse Data</a></li>
+              </ul>
+          </div>
+      </div>
+  </nav>
 
-{% block navbar %}
-{% load static %}
-<li class="nav-item">
-    <a class="nav-link" href="/">Home</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="/data">Data</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/about">About</a>
-</li>
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Instruments
-    </a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="/instruments/mosaic">MoSAIC</a></li>
-      <li><a class="dropdown-item" href="/instruments/aether">AETHER</a></li>
-      <li><a class="dropdown-item" href="/instruments/cape">CAPE</a></li>
-    </ul>
-</li>
-{% endblock %}
+  {% block content %}
+  <script src="{% static 'data/api.js' %}"></script>
 
 
-{% block content %}
-{% load static %}
-<script src="{% static 'data/api.js' %}"></script>
 
-<h1>Science Data Archive</h1>
+  <!-- Masthead-->
+  <header class="masthead">
+    <div class="container">
+        <div class="masthead-heading text-uppercase">Browse GDC Science Data</div>
+    </div>
+  </header>
 
-<div class="container-md" id="dataForms">
+
+  <div class="container-md" id="dataForms">
   <div class="dataForm">
-    <label class="my-1 mr-2" for="selectGDC">GDC-#</label>
+    <label class="my-1 mr-2" for="selectGDC">Observatory #</label>
     <select class="custom-select my-1 mr-sm-2" id="selectGDC">
       <option value="0"></option>
       <option value="1">GDC-1</option>
@@ -52,7 +68,7 @@
   </div>
 
   <div class="dataForm">
-    <label class="my-1 mr-2" for="selectDataType">Data Type</label>
+    <label class="my-1 mr-2" for="selectDataType">Instrument</label>
     <select class="custom-select my-1 mr-sm-2" id="selectDataType">
       <option value="0"></option>
       <option value="1">AETHER</option>
@@ -63,7 +79,8 @@
   </div>
 
   <div class="dataForm">
-    <label class="my-1 mr-2" for="selectDataLevel">Data Level <a href="#" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Level 0: Instrument science data at full resolution, time ordered, with duplicates and transmission errors removed<br>Level 1: Processed to represent physical units, resampled, calibrated, and packaged with ancillary<br>Level 2: Official science data product including geophysical parameters from instruments, derived data products, and located in space and time commensurate with instrument location, pointing and sampling<br>QL: Science & engineering telemetry data stream">(?)</a></label>
+    <label class="my-1 mr-2" for="selectDataLevel">Data Level <a href="#" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="right" 
+      data-bs-title="Level 0: Instrument science data at full resolution, time ordered, with duplicates and transmission errors removed<br>Level 1: Processed to represent physical units, resampled, calibrated, and packaged with ancillary<br>Level 2: Official science data product including geophysical parameters from instruments, derived data products, and located in space and time commensurate with instrument location, pointing and sampling<br>QL: Science & engineering telemetry data stream">(?)</a></label>
     <select class="custom-select my-1 mr-sm-2" id="selectDataLevel">
       <option value="0"></option>
       <option value="1">QL</option>
@@ -77,12 +94,18 @@
     <label class="my-1 mr-2" for="selectDate">Date</label>
     <input type="date" id="selectDate" name="selectDate" value="">
   </div>
-</div>
+  </div>
 
-<div id="dataSubmitContainer" class="container-md">
+  <div id="dataSubmitContainer" class="container-md">
   <button type="button" id="dataSubmit" class="btn btn-primary center" onclick="dataSubmit()">Submit</button>
-</div>
+  </div>
 
-<ul id="dataList" class="list-group"></ul>
+  <ul id="dataList" class="list-group"></ul>
 
-{% endblock %}
+  {% endblock %}
+
+  <!-- Bootstrap core JS-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core theme JS-->
+  <script src="{% static 'home/js/scripts.js' %}"></script>
+</body>
