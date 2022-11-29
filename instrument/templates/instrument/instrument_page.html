@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% block body_class %}template-instrumentpage{% endblock %}
+
+{% block content %}
+{% load wagtailimages_tags %}
+<h1>{{ page.instrument_name|richtext }}</h1>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

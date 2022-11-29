@@ -143,4 +143,6 @@ home/migrations/*
 SCUP/migrations/*
 migrations/*
 data/migrations/*
-instruments/migrations/*
+instrument/migrations/*
+media/images
+media/original_images

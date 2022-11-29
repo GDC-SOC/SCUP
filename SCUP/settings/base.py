@@ -29,6 +29,7 @@ with open(SETTINGS_JSON) as settings_f:
 INSTALLED_APPS = [
     "home",
     "data",
+    "instrument",
     "search",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
