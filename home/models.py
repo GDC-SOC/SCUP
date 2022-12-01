@@ -5,12 +5,12 @@ from wagtail.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
 
 class HomePage(Page):
-    about_gdc = RichTextField(blank=True)
+    About_GDC = RichTextField(blank=True)
 
-    gdc_bio_left_header = RichTextField(blank=True)
-    gdc_bio_left_text = RichTextField(blank=True)
-    gdc_bio_center_header = RichTextField(blank=True)
-    gdc_bio_center_text = RichTextField(blank=True)
+    Section1_Header = RichTextField(blank=True)
+    Section1_Content = RichTextField(blank=True)
+    Section2_Header = RichTextField(blank=True)
+    Section2_Content = RichTextField(blank=True)
     gdc_bio_right_header = RichTextField(blank=True)
     gdc_bio_right_text = RichTextField(blank=True)
 
@@ -97,11 +97,11 @@ class HomePage(Page):
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('about_gdc'),
-        FieldPanel('gdc_bio_left_header'),
-        FieldPanel('gdc_bio_left_text'),
-        FieldPanel('gdc_bio_center_header'),
-        FieldPanel('gdc_bio_center_text'),
+        FieldPanel('About_GDC'),
+        FieldPanel('Section1_Header'),
+        FieldPanel('Section1_Content'),
+        FieldPanel('Section2_Header'),
+        FieldPanel('Section2_Content'),
         FieldPanel('gdc_bio_right_header'),
         FieldPanel('gdc_bio_right_text'),
         FieldPanel('instruments_bio'),
