@@ -3,6 +3,8 @@ from django.db import models
 from wagtail.models import Page
 from wagtail.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
+from wagtailvideos.edit_handlers import VideoChooserPanel
+
 
 class HomePage(Page):
     About_GDC = RichTextField(blank=True)
@@ -10,7 +12,6 @@ class HomePage(Page):
     Section1_Header = RichTextField(blank=True)
     Section1_Content = RichTextField(blank=True)
     Section2_Header = RichTextField(blank=True)
-    Section2_Content = RichTextField(blank=True)
     gdc_bio_right_header = RichTextField(blank=True)
     gdc_bio_right_text = RichTextField(blank=True)
 
@@ -34,6 +35,11 @@ class HomePage(Page):
     timeline_4_header = RichTextField(blank=True)
     timeline_4_bio = RichTextField(blank=True)    
     timeline_footer = RichTextField(blank=True)
+
+    gdc_about_video = models.ForeignKey('wagtailvideos.Video',
+                                        related_name='+',
+                                        null=True,
+                                        on_delete=models.SET_NULL)
 
     aether_logo = models.ForeignKey(
         'wagtailimages.Image',
@@ -101,7 +107,6 @@ class HomePage(Page):
         FieldPanel('Section1_Header'),
         FieldPanel('Section1_Content'),
         FieldPanel('Section2_Header'),
-        FieldPanel('Section2_Content'),
         FieldPanel('gdc_bio_right_header'),
         FieldPanel('gdc_bio_right_text'),
         FieldPanel('instruments_bio'),
@@ -122,6 +127,7 @@ class HomePage(Page):
         FieldPanel('timeline_4_date'),
         FieldPanel('timeline_4_header'),
         FieldPanel('timeline_4_bio'),
-        FieldPanel('timeline_footer')
+        FieldPanel('timeline_footer'),
+        VideoChooserPanel('gdc_about_video')
     ]
 
