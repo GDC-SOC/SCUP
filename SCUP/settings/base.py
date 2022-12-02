@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "data",
     "instrument",
     "search",
+    "wagtailvideos",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
