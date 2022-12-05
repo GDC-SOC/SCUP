@@ -42,7 +42,7 @@
     </div>
 
     <div class="dataForm">
-      <label class="my-1 mr-2" for="selectDataLevel">Data Level</label>
+      <label class="my-1 mr-2" for="selectDataLevel">Data Level <a data-bs-toggle="offcanvas" href="#dataLevelsExpanded" role="button" aria-controls="dataLevelsExpanded">(?)</a></label>
       <select class="custom-select my-1 mr-sm-2" id="selectDataLevel">
         <option value="0"></option>
         <option value="1">QL</option>
@@ -64,13 +64,9 @@
 
   <ul id="dataList" class="list-group"></ul>
   
-  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-    Button with data-bs-target
-  </button>
-  
-  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="dataLevelsExpanded" aria-labelledby="dataLevelsExpandedLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Data Level Definitions</h5>
+      <h5 class="offcanvas-title" id="dataLevelsExpandedLabel">Data Level Definitions</h5>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
