@@ -86,6 +86,22 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-lg-6">
+                    <div class="team-member">
+                        {% image page.nemisis_logo width-300 class="max-auto rounded-circle" %}
+                        <h4><a href="/instruments/nemisis">NEMISIS</a></h4>
+                        <p class="text-muted">{{ page.nemisis_bio|richtext }}</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="team-member">
+                        {% image page.tps_logo width-300 class="max-auto rounded-circle" %}
+                        <h4><a href="/instruments/tps">TPS</a></h4>
+                        <p class="text-muted">{{ page.tps_bio|richtext }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">{{ page.instruments_lower_bio|richtext }}</p></div>
             </div>
         </div>
