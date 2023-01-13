@@ -19,6 +19,8 @@ class HomePage(Page):
     aether_bio = RichTextField(blank=True)
     cape_bio = RichTextField(blank=True)
     mosaic_bio = RichTextField(blank=True)
+    nemisis_bio = RichTextField(blank=True)
+    tps_bio = RichTextField(blank=True)
     instruments_lower_bio = RichTextField(blank=True)
 
     timeline_bio = RichTextField(blank=True)
@@ -62,6 +64,20 @@ class HomePage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    nemisis_logo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    tps_logo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     timeline_1_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -96,6 +112,8 @@ class HomePage(Page):
         FieldPanel('aether_logo'),
         FieldPanel('cape_logo'),
         FieldPanel('mosaic_logo'),
+        FieldPanel('nemisis_logo'),
+        FieldPanel('tps_logo'),
         FieldPanel('timeline_1_image'),
         FieldPanel('timeline_2_image'),
         FieldPanel('timeline_3_image'),
@@ -113,6 +131,8 @@ class HomePage(Page):
         FieldPanel('aether_bio'),
         FieldPanel('cape_bio'),
         FieldPanel('mosaic_bio'),
+        FieldPanel('nemisis_bio'),
+        FieldPanel('tps_bio'),
         FieldPanel('instruments_lower_bio'),
         FieldPanel('timeline_bio'),
         FieldPanel('timeline_1_date'),
