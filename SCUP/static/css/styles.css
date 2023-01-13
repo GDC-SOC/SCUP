@@ -7918,8 +7918,12 @@ textarea.form-control-lg {
   pointer-events: auto !important;
 }
 
+.rounded-image {
+  border-radius: 3.25rem !important;
+}
+
 .rounded {
-  border-radius: 0.25rem !important;
+  border-radius: .25rem !important;
 }
 
 .rounded-0 {
@@ -11540,8 +11544,8 @@ header.masthead .masthead-heading {
 }
 .timeline:before {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 15px;
+  bottom: 35px;
   left: 40px;
   width: 2px;
   margin-left: -1.5px;
@@ -11579,6 +11583,9 @@ header.masthead .masthead-heading {
   border-right-width: 14px;
   border-left-width: 0;
 }
+.agu-logo {
+  padding: 4px;
+}
 .timeline > li .timeline-image {
   position: absolute;
   z-index: 100;
@@ -11588,7 +11595,7 @@ header.masthead .masthead-heading {
   margin-left: 0;
   text-align: center;
   color: white;
-  border: 7px solid #e9ecef;
+  border: 3px solid #e9ecef;
   border-radius: 100%;
   background-color: #ffc800;
 }
@@ -11689,9 +11696,9 @@ header.masthead .masthead-heading {
     padding: 0 20px 20px 100px;
   }
   .timeline > li .timeline-image {
-    width: 170px;
-    height: 170px;
-    margin-left: -85px;
+    width: 140px;
+    height: 140px;
+    margin-left: -72px;
   }
   .timeline > li .timeline-image h4, .timeline > li .timeline-image .h4 {
     margin-top: 40px;
@@ -11705,7 +11712,7 @@ header.masthead .masthead-heading {
   text-align: center;
 }
 .team-member img {
-  width: 14rem;
+  width: 22rem;
   height: 14rem;
   border: 0.5rem solid rgba(0, 0, 0, 0.1);
 }
