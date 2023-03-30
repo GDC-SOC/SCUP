@@ -14,6 +14,12 @@ class HomePage(Page):
     Section2_Header = RichTextField(blank=True)
     gdc_bio_right_header = RichTextField(blank=True)
     gdc_bio_right_text = RichTextField(blank=True)
+    Section4_Header = RichTextField(blank=True)
+    Section4_Content = RichTextField(blank=True)
+    Section5_Header = RichTextField(blank=True)
+    Section5_Content = RichTextField(blank=True)
+    Section6_Header = RichTextField(blank=True)
+    Section6_Content = RichTextField(blank=True)
 
     instruments_bio = RichTextField(blank=True)
     aether_bio = RichTextField(blank=True)
@@ -127,6 +133,12 @@ class HomePage(Page):
         FieldPanel('Section2_Header'),
         FieldPanel('gdc_bio_right_header'),
         FieldPanel('gdc_bio_right_text'),
+        FieldPanel('Section4_Header'),
+        FieldPanel('Section4_Content'),
+        FieldPanel('Section5_Header'),
+        FieldPanel('Section5_Content'),
+        FieldPanel('Section6_Header'),
+        FieldPanel('Section6_Content'),
         FieldPanel('instruments_bio'),
         FieldPanel('aether_bio'),
         FieldPanel('cape_bio'),
