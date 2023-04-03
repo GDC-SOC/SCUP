@@ -29,56 +29,38 @@
             </div>
             <div class="row text-center">
                 <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                    </span>
                     <h4 class="my-3">{{ page.Section1_Header|richtext }}</h4>
                     <div class="text-muted">{{ page.Section1_Content|richtext }}</div>
                 </div>
                 <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                    </span>
                     <h4 class="my-3">{{ page.Section2_Header|richtext }}</h4>
                     {% video self.gdc_about_video controls width=350 %}
                 </div>
                 <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                    </span>
                     <h4 class="my-3">{{ page.gdc_bio_right_header|richtext }}</h4>
                     <div class="text-muted">{{ page.gdc_bio_right_text|richtext }}</div>
                 </div>
                 <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                    </span>
                     <h4 class="my-3">{{ page.Section4_Header|richtext }}</h4>
                     <div class="text-muted">{{ page.Section4_Content|richtext }}</div>
                 </div>
                 <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                    </span>
                     <h4 class="my-3">{{ page.Section5_Header|richtext }}</h4>
                     <div class="text-muted">{{ page.Section5_Content|richtext }}</div>
                 </div>
                 <div class="col-md-4">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                    </span>
                     <h4 class="my-3">{{ page.Section6_Header|richtext }}</h4>
                     <div class="text-muted">{{ page.Section6_Content|richtext }}</div>
                 </div>
             </div>
         </div>
     </section>
+
+
+
+
+
+
     <!-- Instrument Teams -->
     <section class="page-section bg-light" id="instteam">
         <div class="container">
@@ -110,14 +92,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <div class="team-member">
                         {% image page.nemisis_logo original class="max-auto rounded-image" %}
                         <h4>NEMISIS</h4>
                         <div class="text-muted">{{ page.nemisis_bio|richtext }}</div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <div class="team-member">
                         {% image page.tps_logo original class="max-auto rounded-image" %}
                         <h4>TPS</h4>
