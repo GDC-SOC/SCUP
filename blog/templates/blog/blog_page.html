@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block content %}
+    <body id="page-top">
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container">
+                <div class="masthead-heading text-uppercase">
+                    Geospace Dynamics Constellation
+                </div>
+                <div class="masthead-subheading">
+                    Science Community User Portal
+                </div>
+            </div>
+        </header>
+        <p style="margin-bottom:1cm;"></p>
+        <div class = "container"> 
+          {% image page.blog_image width-400 %}
+       
+            <h1>
+                {{ page.title }}
+            </h1>
+
+            <h5 class="section-subheading text-muted">
+                {{ page.date }}
+            </h5>
+            {{ page.body|richtext }}
+
+            <p><a href="{{ page.get_parent.url }}">Return to news</a></p>
+        </div>
+    </body>
+
+   
+
+
+
+{% endblock %}

@@ -4,10 +4,10 @@ from wagtail.models import Page
 from wagtail.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtailvideos.edit_handlers import VideoChooserPanel
+from blog.models import BlogPage
 
 
 class HomePage(Page):
-    About_GDC = RichTextField(blank=True)
 
     Section1_Header = RichTextField(blank=True)
     Section1_Content = RichTextField(blank=True)
@@ -127,7 +127,6 @@ class HomePage(Page):
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('About_GDC'),
         FieldPanel('Section1_Header'),
         FieldPanel('Section1_Content'),
         FieldPanel('Section2_Header'),
@@ -163,3 +162,9 @@ class HomePage(Page):
         VideoChooserPanel('gdc_about_video')
     ]
 
+
+    def get_context (self,request,*args,**kwargs):
+        context = super().get_context(request,*args,**kwargs)
+        news = BlogPage.objects.live().order_by('-first_published_at')[:3]
+        context["news"] = news
+        return context

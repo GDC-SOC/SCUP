@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+    <body id="page-top">
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container" align="center">
+                <div class="masthead-heading text-uppercase">
+                    Geospace Dynamics Constellation
+                </div>
+                <div class="masthead-subheading">
+                    Science Community User Portal
+                </div>
+            </div>
+        </header>
+    </body>
+    <body>
+        <p style="margin-bottom:3cm;"></p>
+        <h1>{{ page.title }}</h1>
+
+        <h2 class="intro">{{ page.intro|richtext }}</h2>
+
+        {% for post in posts %}
+            <div class ="row mt-5" align = "left">   
+                <div class = "col-sm-3">
+                    {% image post.specific.blog_image fill-200x200 as blog_img %}
+                    <a href="{% pageurl post %}">
+                        <img src="{{blog_img.url}}" alt="{{blog_img.alt}}">
+                    </a>
+
+                </div>
+                <div class="col-sm-8" align="left">
+                    <a href="{% pageurl post %}">
+                            <h2>{{ post.title }}</h2>
+                    </a>    
+                    <h5 class="section-subheading text-muted">
+                        {{ post.specific.date }}
+                    </h5> 
+                    <p>  
+                    {{ post.specific.summary }} ... <br>
+                    <a href="{% pageurl post %}">Read More</a>
+                    </p>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+        
+    </body>    
+    <div class="container mt-5 mb-5" >
+        <div class="row">
+            <div class="col-lg-12">
+                
+                {% if posts.paginator.num_pages > 1%}
+                <div class="pagination justify-content-center" >
+                        
+                    {% if posts.has_previous %} 
+                        <li class="page-item">
+                            <a href="?page={{ posts.previous_page_number}}" class="page-link">
+                                <span>&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for page_num in posts.paginator.page_range %}
+                        <li class="page-item {% if page_num == posts.number %} active {% endif %}">
+                            <a href="?page={{ page_num }}" class="page-link">
+                                {{ page_num }}
+                            </a>
+                        </li>
+                    {% endfor %}
+
+                    {% if posts.has_next %}
+                        <li class="page-item">
+                            <a href="?page={{ posts.next_page_number }}" class="page-link">
+                                <span>&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </div>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+  
+{% endblock %}
