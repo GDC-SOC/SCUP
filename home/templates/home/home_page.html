@@ -29,24 +29,32 @@
                         GDC News
                     </a>
                 </h2>
-                <div>
-                    {% for post in news %}
-                    <div class ="row mt-5 mb-5" align= "left">   
-                        <h2 >
-                            {{ post.specific.title }}
-                        </h2>
-                        <h5 class="section-subheading text-muted">
-                            {{ post.specific.date }}
-                        </h5>
-                        <p>  
-                            {{ post.specific.summary }} ...   
-                        </p>
-                        <a class="btn btn-default btn-xs" href="{% pageurl post %}">
-                             More »
-                        </a>
+            </div>
+            <div>
+                {% for post in news %}
+                    <div class ="row mt-5" align = "left">   
+                        <div class = "col-sm-3">
+                            {% image post.specific.blog_image fill-200x200 as blog_img %}
+                            <a href="{% pageurl post %}">
+                                <img src="{{blog_img.url}}" alt="{{blog_img.alt}}">
+                            </a>
+                        </div>
+                        <div class ="col-sm-8" align= "left">   
+                            <h2>
+                                {{ post.specific.title }}
+                            </h2>
+                            <h5 class="section-subheading text-muted">
+                                {{ post.specific.date }}
+                            </h5>
+                            <p>  
+                                {{ post.specific.summary }} ...   
+                            </p>
+                            <a type="button" class="btn-sm" href="{% pageurl post %}">
+                                More »
+                            </a>
+                        </div>
                     </div>
-                {% endfor %}
-                </div>
+                    {% endfor %}
             </div>
             <div class="row text-center">
                 <div class="col-md-4">
