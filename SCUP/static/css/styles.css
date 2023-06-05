@@ -11386,7 +11386,8 @@ p {
     transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
   }
   #mainNav .navbar-brand {
-    font-size: 1.5em;
+    font-size: 2rem;
+    /* font-size: 1.5em; */
     transition: font-size 0.3s ease-in-out;
   }
   #mainNav .navbar-brand img {
@@ -11399,11 +11400,13 @@ p {
     background-color: #212529;
   }
   #mainNav.navbar-shrink .navbar-brand {
-    font-size: 1.25em;
+    font-size: 1.8rem;
+    /* font-size: 1.25em; */
   }
   #mainNav.navbar-shrink .navbar-brand svg,
 #mainNav.navbar-shrink .navbar-brand img {
-    height: 1.5rem;
+    height: 2.3rem;
+    /* height: 1.5rem; */
   }
   #mainNav .navbar-nav .nav-item {
     margin-right: 1rem;
@@ -11715,14 +11718,32 @@ header.masthead .masthead-heading {
   text-align: center;
 }
 .team-member img {
-  width: 22rem;
-  height: 14rem;
-  border: 0.5rem solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: auto;
+  border: 0.4rem solid rgba(0, 0, 0, 0.1);
+  min-width: 200px; 
+  max-width: 400px;
 }
 .team-member h4, .team-member .h4 {
   margin-top: 1.5rem;
   margin-bottom: 0;
 }
+
+/*  */
+.blog-post {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+.blog-post img {
+  width: 100%;
+  height: auto;
+  border: 0.5rem solid rgba(0, 0, 0, 0.1);
+}
+.blog-post h4, .blog-post .h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+/*  */
 
 .img-brand {
   height: 2.75rem;

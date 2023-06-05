@@ -42,7 +42,7 @@
                             {% image post.specific.blog_image fill-500x200 as blog_img %}
                             <a href="{% pageurl post %}">
                                 <!-- create box with blog image inside. if no blog image set, use a default -->
-                                <div class="team-member">
+                                <div class="blog-post">
                                     {% if blog_img %}
                                         <img src="{{ blog_img.url }}" alt="{{ blog_img.alt }}" class="max-auto rounded-image">
                                     {% else %}

@@ -26,7 +26,7 @@
                 {% for post in news|slice:":2" %}
             <div class="col-md-6">
                 <!-- create box with blog image inside. if no blog image set, use a default -->
-                <div class="team-member">
+                <div class="blog-post">
                     {% if blog_img %}
                         <img src="{{ blog_img.url }}" alt="{{ blog_img.alt }}" class="max-auto rounded-image">
                     {% else %}
@@ -83,10 +83,10 @@
 </section>      
 <!-- GDC Video -->
 <section class="page-section text-center bg-light" id="gdcvideo">
-        <h2 class="my-3" style="padding-left:40px; padding-right:40px">
+        <h2 class="my-3">
             {{ page.Section2_Header|richtext }}
         </h2>
-        {% video self.gdc_about_video controls width="10%" %}
+            {% video self.gdc_about_video controls %}
 </section>
 <!-- Instrument Teams -->
 <section class="page-section" id="instteam">
