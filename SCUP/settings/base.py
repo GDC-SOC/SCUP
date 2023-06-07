@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "blog",
     "rest_framework",
-    "wagtail.contrib.table_block"
+    "wagtail.contrib.table_block",
     "objectives"
 ]
 

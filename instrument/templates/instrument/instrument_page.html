@@ -4,26 +4,71 @@
 
 {% block content %}
 {% load wagtailimages_tags %}
+<style>
+    .in-page-navbar{
+        max-width: 60%;
+        margin: auto;
+    }
+</style>
+<style>
+    .grey{
+        background: #f8f7f5;
+    }
+</style>
+<style>
+    .separator-r{
+        border-right: 3px solid;
+        border-color:  #f8f7f5;
+    }
+</style>
+<style>
+    .separator-l{
+        border-left: 3px solid;
+        border-color:  #f8f7f5;
+    }
+</style>
+<style>
+    .align-vertical{
+        display: flex;
+        align-items: center;
+    }
+</style>
 
 <body id="page-top">
     <!-- Masthead-->
     <header class="masthead">
-    <div class="container">
-        <div class="masthead-heading text-uppercase">
-            {{ page.instrument_name|richtext }}
+        <div class="container">
+            <div class="masthead-heading text-uppercase">
+                {{ page.instrument_name|richtext }}
+            </div>
         </div>
-    </div>
     </header>
-
+    <div class="in-page-navbar mt-3">
+        <div class="row text-center">
+            <a class="col-sm" href="./#intro">
+                Introduction
+            </a>
+            <a class="col-sm" href='./#goals'>
+                Mission Goals
+            </a>
+            <a class="col-sm" href="./#how">
+                    How the instrument works
+            </a>
+            <a class="col-sm" href="./#more">
+                More
+            </a>
+        </div>
+        <hr>
+    </div>  
     <!-- Home-->
-    <section class="page-section" id="Intro">
+    <section class="page-section" id="intro">
         <div class="container">
             <div class="text-center">
                 <div class = "container"> 
                     {% image page.instrument_logo max-320x200 %}
                 </div>
-                <div class="row text-center mt-5">
-                    <div class="col-md-4">
+                <div class="row text-center mt-2">
+                    <div class="col-md-4 separator-r">
                         <h2 class="section-heading text-uppercase">
                             PI
                         </h2>
@@ -34,7 +79,7 @@
                             {{ page.PI|richtext }}
                         </h3>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 separator-r">
                         <h2 class="section-heading text-uppercase">
                             DPI
                         </h2>
@@ -45,7 +90,7 @@
                             {{ page.DPI|richtext }}
                         </h3>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 separator-r">
                         <h2 class="section-heading text-uppercase">
                             Instrument Scientist
                         </h2>
@@ -57,28 +102,33 @@
                         </h3>
                     </div>
                 </div>
+                <hr>
             </div>  
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <h2 class="section-heading text-uppercase">
+            <div class="flex-container row align-vertical">
+                <div class="col-md-5">
+                    <h2 class="text-uppercase text-center ">
                         Institutions and their roles
                     </h2>
-                    <h3 class="section-subheading text-muted">
+                </div>
+                <div class="col-md-7 separator-l mb-3">
+                    <h3 class="text-muted text-center">
                         {{ page.institutions|richtext}}
                     </h3>
+                    
                 </div>
-                <div class="col-md-4">
-                    <h2 class="section-heading text-uppercase">
-                        Summary of {{page.instrument_name|richtext}}
-                    </h2>
-                    <h3 class="section-subheading text-muted">
-                        {{ page.instrument_summary|richtext}}
-                    </h3>
-                </div>
+                <hr>
             </div>
-        </div>       
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">
+                    Summary of {{page.instrument_name|richtext}}
+                </h2>
+                <h3 class="section-subheading text-muted">
+                    {{ page.instrument_summary|richtext}}
+                </h3>
+            </div>
+        </div>         
     </section>
-    <section class="page-section" id="What does the instrument do?">
+    <section class="page-section grey" id="goals">
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">
@@ -102,34 +152,42 @@
             </div>
         </div>
     </section>
-    <section class="page-section" id="How does the instrument work">
+    <section class="page-section" id="how">
         <div class="container">
-            <div class="text-center">
-                <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center separator-r">
                     {% image page.image_of_instrument max-320x320 %}
                 </div>
-                <h2 class="section-heading text-uppercase">
-                    Instrument Parameters    
-                </h2>
-                <h3 class="section-subheading text-muted">
-                    {{page.instrument_parameters|richtext}}
-                </h3>
-                <h2 class="section-heading text-uppercase">
-                    Principles of Operation    
-                </h2>
-                <h3 class="section-subheading text-muted">
-                    {{page.operation_principles|richtext}}
-                </h3>
-                <h2 class="section-heading text-uppercase">
-                    Concept of Operation    
-                </h2>
-                <h3 class="section-subheading text-muted">
-                    {{page.operation_concept|richtext}}
-                </h3>
+                <div class="col-md-8">
+                    <h2 class="section-heading text-uppercase text-center">
+                        Instrument Parameters    
+                    </h2>
+                    <h3 class="section-subheading text-muted">
+                        {{page.instrument_parameters|richtext}}
+                    </h3>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-6 separator-r text-center">
+                    <h2 class="section-heading text-uppercase">
+                        Principles of Operation    
+                    </h2>
+                    <h3 class="section-subheading text-muted">
+                        {{page.operation_principles|richtext}}
+                    </h3>
+                </div>
+                <div class="col-md-6 text text-center"> 
+                    <h2 class="section-heading text-uppercase">
+                        Concept of Operation    
+                    </h2>
+                    <h3 class="section-subheading text-muted">
+                        {{page.operation_concept|richtext}}
+                    </h3>
+                </div>
             </div>
         </div>
     </section>
-    <section class="page-section" id="Further Reading">
+    <section class="page-section grey" id="more">
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">
