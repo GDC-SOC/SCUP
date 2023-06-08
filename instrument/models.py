@@ -2,7 +2,8 @@ from django.db import models
 
 from wagtail.models import Page
 from wagtail.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel
+#from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 
 class InstrumentPage(Page):
     instrument_name = RichTextField(blank=True)
