@@ -7499,6 +7499,11 @@ textarea.form-control-lg {
   padding-bottom: 3rem !important;
 }
 
+.display-6 {
+  padding-top: 5rem !important;
+  padding-bottom: 5em !important;
+}
+
 .pt-0 {
   padding-top: 0 !important;
 }
@@ -11730,12 +11735,40 @@ header.masthead .masthead-heading {
 }
 
 /*  */
+.team-logo-head {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+.team-logo-head img {
+  width: 100%;
+  height: auto;
+  border: 0.4rem solid rgba(0, 0, 0, 0.1);
+  min-width: 200px; 
+  max-width: 700px;
+}
+.team-logo-head h4, .team-logo-head .h4 {
+  /* margin-top: 1.5rem; */
+  margin-bottom: 0;
+}
+
+.team-human {
+margin-bottom: 3rem;
+text-align: center;
+}
+.team-human img {
+width: 100%;
+height: auto;
+border: 0.4rem solid rgba(0, 0, 0, 0.1);
+min-width: 100px; 
+max-width: 300px;
+}
+
 .blog-post {
   margin-bottom: 3rem;
   text-align: center;
 }
 .blog-post img {
-  width: 100%;
+  width: 80%;
   height: auto;
   border: 0.5rem solid rgba(0, 0, 0, 0.1);
 }
@@ -11816,4 +11849,18 @@ section#contact form#contactForm :-ms-input-placeholder {
 
 .parent-links li:not(:last-child):after {
   content: " / ";
+}
+
+.separator-r{
+  border-right: 3px solid;
+  border-color: #dee2e6;
+  /* border-color:  #f8f7f5; */
+}
+.separator-l{
+  border-left: 3px solid;
+  border-color:  #dee2e6;
+}
+.align-vertical{
+  display: flex;
+  align-items: center;
 }

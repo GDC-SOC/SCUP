@@ -147,3 +147,7 @@ instrument/migrations/*
 media
 media/images
 media/original_images
+
+
+# VS Code Workspace
+*.code-workspace
