@@ -12,6 +12,8 @@
         <div class="masthead-heading text-uppercase">Geospace Dynamics Constellation</div>
     </div>
 </header>
+
+
 <!-- Home -->
 <section class="page-section bg-light" id="gdcnews">
     <div class="container">
@@ -21,33 +23,33 @@
                 {{ news.0.get_parent.title }}
             </a>
             </h2>
+            <!-- Only show the first two blog posts that are inside the news variables -->
+            {% for post in news|slice:":3" %}
             <div class="row mt-5 mb-5" style="padding:40px">
-                <!-- Only show the first two blog posts that are inside the news variables -->
-                {% for post in news|slice:":2" %}
-            <div class="col-md-6">
                 <!-- create box with blog image inside. if no blog image set, use a default -->
-                <div class="blog-post">
+                <div class="col-md-5">
                     {% if blog_img %}
-                        <img src="{{ blog_img.url }}" alt="{{ blog_img.alt }}" class="max-auto rounded-image">
+                        <img src="{{ blog_img.url }}" alt="{{ blog_img.alt }}" class="mx-auto rounded-image blog-post">
                     {% else %}
-                        <img src="/static/default_image.png" alt="Default Image" class="max-auto rounded-image">
+                        <img src="/static/default_image.png" alt="Default Image" class="rounded-image blog-post-img">
                     {% endif %}
                 </div>
-                <h2 class="section-subheading">
-                {{ post.specific.title }}
-                </h2>
-                <h5 class="section-subheading text-muted">
-                {{ post.specific.date }}
-                </h5>
-                <p>
-                {{ post.specific.summary }} ...
-                </p>
-                <a class="btn btn-primary btn-xs" href="{% pageurl post %}">
-                Read More »
-                </a>
+                <div class="col-md-7">
+                    <h2 class="section-subheading">
+                    {{ post.specific.title }}
+                    </h2>
+                    <h5 class="section-subheading text-muted">
+                    {{ post.specific.date }}
+                    </h5>
+                    <p>
+                    {{ post.specific.summary }} ...
+                    </p>
+                    <a class="btn btn-primary btn-xs" href="{% pageurl post %}">
+                    Read More »
+                    </a>
+                </div>
             </div>
             {% endfor %}
-            </div>
         </div>
     </div>
 </section>    
@@ -58,26 +60,26 @@
             <h2 class="section-heading text-uppercase">About GDC</h2>
         </div>
         <div class="row text-start">
-            <div class="col-md-4 mx-auto" style="padding:40px">
+            <div class="col-md-6 mx-auto aboutsection">
                 <h4 class="my-3 text-center">{{ page.Section1_Header|richtext }}</h4>
                 <div class="text-muted">{{ page.Section1_Content|richtext }}</div>
             </div>
-            <div class="col-md-4 mx-auto" style="padding:40px">
+            <div class="col-md-6 mx-auto aboutsection">
                 <h4 class="my-3 text-center">{{ page.gdc_bio_right_header|richtext }}</h4>
                 <div class="text-muted">{{ page.gdc_bio_right_text|richtext }}</div>
             </div>
-            <div class="col-md-4 mx-auto" style="padding:40px">
+            <!-- <div class="col-md-5 mx-auto" style="padding:40px">
                 <h4 class="my-3 text-center">{{ page.Section4_Header|richtext }}</h4>
                 <div class="text-muted">{{ page.Section4_Content|richtext }}</div>
-            </div>
-            <div class="col-md-4 mx-auto" style="padding:40px">
+            </div> -->
+            <!-- <div class="col-md-6 mx-auto" style="padding:40px">
                 <h4 class="my-3 text-center">{{ page.Section5_Header|richtext }}</h4>
                 <div class="text-muted">{{ page.Section5_Content|richtext }}</div>
             </div>
-            <div class="col-md-4 mx-auto" style="padding:40px">
+            <div class="col-md-6 mx-auto" style="padding:40px">
                 <h4 class="my-3 text-center">{{ page.Section6_Header|richtext }}</h4>
                 <div class="text-muted">{{ page.Section6_Content|richtext }}</div>
-            </div>
+            </div> -->
         </div>
     </div>          
 </section>      
@@ -97,22 +99,22 @@
         </div>
         <div class="row" style="padding-bottom:40px">
             <div class="col-lg-4 mx-auto">
-                <div class="team-member" style="padding-left:40px; padding-right:40px">
-                    {% image page.aether_logo original class="max-auto rounded-image" %}
+                <div class="team-member" style="padding-left:40px; padding-right:40px" id="aether-brief">
+                    {% image page.aether_logo original class="mx-auto rounded-image" %}
                     <h4>AETHER</h4>
                     <div class="text-muted">{{ page.aether_bio|richtext }}</div>
                 </div>
             </div>
             <div class="col-lg-4 mx-auto">
-                <div class="team-member" style="padding-left:40px; padding-right:40px">
-                    {% image page.cape_logo original class="max-auto rounded-image" %}
+                <div class="team-member" style="padding-left:40px; padding-right:40px" id="cape-brief">
+                    {% image page.cape_logo original class="mx-auto rounded-image" %}
                     <h4>CAPE</h4>
                     <div class="text-muted">{{ page.cape_bio|richtext }}</div>
                 </div>
             </div>
             <div class="col-lg-4 mx-auto">
-                <div class="team-member" style="padding-left:40px; padding-right:40px">
-                    {% image page.mosaic_logo original class="max-auto rounded-image" %}
+                <div class="team-member" style="padding-left:40px; padding-right:40px" id="mosaic-brief">
+                    {% image page.mosaic_logo original class="mx-auto rounded-image" %}
                     <h4>MoSAIC</h4>
                     <div class="text-muted">{{ page.mosaic_bio|richtext }}</div>
                 </div>
@@ -120,17 +122,24 @@
         </div>
         <div class="row">
             <div class="col-lg-4 mx-auto">
-                <div class="team-member" style="padding-left:40px; padding-right:40px">
-                    {% image page.nemisis_logo original class="max-auto rounded-image" %}
+                <div class="team-member" style="padding-left:40px; padding-right:40px" id="nemisis-brief">
+                    {% image page.nemisis_logo original class="mx-auto rounded-image" %}
                     <h4>NEMISIS</h4>
                     <div class="text-muted">{{ page.nemisis_bio|richtext }}</div>
                 </div>
             </div>
             <div class="col-lg-4 mx-auto">
-                <div class="team-member" style="padding-left:40px; padding-right:40px">
-                    {% image page.tps_logo original class="max-auto rounded-image" %}
+                <div class="team-member" style="padding-left:40px; padding-right:40px" id="tps-brief">
+                    {% image page.tps_logo original class="mx-auto rounded-image" %}
                     <h4>TPS</h4>
                     <div class="text-muted">{{ page.tps_bio|richtext }}</div>
+                </div>
+            </div>
+            <div class="col-lg-4 mx-auto">
+                <div class="team-member" style="padding-left:40px; padding-right:40px" id="rem-brief">
+                    {% image page.rem_logo original class="mx-auto rounded-image" %}
+                    <h4>REM</h4>
+                    <div class="text-muted">{{ page.rem_bio|richtext }}</div>
                 </div>
             </div>
         </div>
@@ -140,7 +149,7 @@
     </div>
 </section>
 <!-- Timeline -->
-<section class="page-section bg-light" id="events">
+<!-- <section class="page-section bg-light" id="events">
     <div class="container">
         <div class="text-center">
             <h2 class="section-heading text-uppercase">Upcoming Events</h2>
@@ -184,7 +193,7 @@
             </li>
         </ul>
     </div>
-</section>
+</section> -->
 <!-- Timeline -->
 
 {% endblock %}

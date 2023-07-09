@@ -27,6 +27,7 @@ class HomePage(Page):
     mosaic_bio = RichTextField(blank=True)
     nemisis_bio = RichTextField(blank=True)
     tps_bio = RichTextField(blank=True)
+    rem_bio = RichTextField(blank=True)
     instruments_lower_bio = RichTextField(blank=True)
 
     timeline_bio = RichTextField(blank=True)
@@ -84,6 +85,13 @@ class HomePage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    rem_logo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     timeline_1_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -120,6 +128,7 @@ class HomePage(Page):
         FieldPanel('mosaic_logo'),
         FieldPanel('nemisis_logo'),
         FieldPanel('tps_logo'),
+        FieldPanel('rem_logo'),
         FieldPanel('timeline_1_image'),
         FieldPanel('timeline_2_image'),
         FieldPanel('timeline_3_image'),
@@ -144,6 +153,7 @@ class HomePage(Page):
         FieldPanel('mosaic_bio'),
         FieldPanel('nemisis_bio'),
         FieldPanel('tps_bio'),
+        FieldPanel('rem_bio'),
         FieldPanel('instruments_lower_bio'),
         FieldPanel('timeline_bio'),
         FieldPanel('timeline_1_date'),
