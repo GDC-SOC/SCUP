@@ -183,26 +183,41 @@ WAGTAILADMIN_BASE_URL = "http://gdc.smce.nasa.gov"
 CSRF_TRUSTED_ORIGINS = SETTINGS_JSON_PARSED["CSRF_TRUSTED_ORIGINS"]
 
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': '/home/bitnami/scup-log.log'
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    }
-}
+# Setting up logging
+# This configuration log messages of INFO level or above.
+# The log messages will be formatted with the timestamp,
+# log level, and message. The logging will be directed to
+# a log file located at /app/logs/davinci_website.log inside the Docker
+# container.
+
+# Ensure that the required modules have been imported
+import os
+import datetime
+import logging
+
+# Define the path for the logs directory
+logs_directory = os.path.join(BASE_DIR, 'logs')
+
+# Create the logs directory if it doesn't already exist
+if not os.path.exists(logs_directory):
+    os.makedirs(logs_directory)
+
+# Define the format string for the timestamp
+format_str = '%j %Y-%m-%d %H:%M:%S,%f'
+milliseconds = datetime.datetime.now().strftime('%f')[:-3]  # Extract milliseconds
+
+# Append the milliseconds to the format string
+format_str_with_ms = format_str.replace('%f', milliseconds)
+
+# Configure logging
+log_file_path = os.path.join(logs_directory, 'django_SCUP.log')
+
+print(f"Creating log at {log_file_path}") 
+logging.basicConfig(
+    handlers=[
+        logging.FileHandler(log_file_path, encoding='utf-8'),
+    ],
+    level="DEBUG",
+    format='%(asctime)s UTC %(levelname)s: %(message)s',
+    datefmt=format_str_with_ms
+)
