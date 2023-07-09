@@ -221,3 +221,5 @@ logging.basicConfig(
     format='%(asctime)s UTC %(levelname)s: %(message)s',
     datefmt=format_str_with_ms
 )
+# Log a message to confirm that logging is working
+logging.debug('Logging is working. Get back to work.')
