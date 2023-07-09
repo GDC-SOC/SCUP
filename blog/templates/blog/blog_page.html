@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% block body_class %}template-blogpage{% endblock %}
+{% block content %}
+
+<!-- Masthead-->
+<header class="masthead">
+    <div class="container">
+        <div class="masthead-heading text-uppercase">
+            Geospace Dynamics Constellation
+        </div>
+    </div>
+</header>
+<!-- Secondary Header -->
+<section class="page-section bg-light" id="secondary-header" style="padding-top: 15px; padding-bottom: 5px;">
+    <div class="container">
+        <ul class="parent-links" style="padding-left: 0.5px">
+            {% for parent_page in page.get_ancestors %}
+                {% if not parent_page.is_root %}
+                <li>
+                    <a href="{{ parent_page.url }}" style="text-decoration: none;">
+                        <button class="btn btn-primary btn-sm">{{ parent_page.title }}</button>
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+            <li>{{ page.title }}</li>
+        </ul>
+    </div>
+</section>
+<!-- Blog Post -->
+<p style="margin-bottom:1cm;"></p>
+<div class = "container"> 
+    <div class="container" style="text-align: center;">
+        {% image page.blog_image width-400 %}
+    </div>
+    <h1>
+        {{ page.title }}
+    </h1>
+    <h5 class="section-subheading text-muted">
+        {{ page.date }}
+    </h5>
+    {{ page.body|richtext }}
+</div>
+<!-- RETURN TO NEWS BUTTON -->
+<p class="text-center"> 
+    <a href="{{ page.get_parent.url }}">
+      <button class="btn btn-primary btn-xs">« Return to News</button>
+    </a>
+</p>
+
+{% endblock %}

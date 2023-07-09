@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+<!-- <body id="page-top"> -->
+<!-- Masthead-->
+<header class="masthead">
+    <div class="container" align="center">
+        <div class="masthead-heading text-uppercase">
+            Geospace Dynamics Constellation
+        </div>
+        <!-- <div class="masthead-subheading">
+            {{ page.title }}
+        </div> -->
+    </div>
+</header>
+<!-- Secondary Header -->
+<section class="page-section bg-light" id="secondary-header" style="padding-top: 15px; padding-bottom: 5px;">
+    <div class="container">
+        <ul class="parent-links" style="padding-left: 0.5px">
+            {% for parent_page in page.get_ancestors %}
+                {% if not parent_page.is_root %}
+                <li>
+                    <a href="{{ parent_page.url }}" style="text-decoration: none;">
+                        <button class="btn btn-primary btn-sm">{{ parent_page.title }}</button>
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+            <li>{{ page.title }}</li>
+        </ul>
+    </div>
+</section>
+<!-- Start Showing Blog Posts -->
+<div class="row bg-light">
+    {% for post in posts %}
+    <div class="col-md-4">
+                    <div class="blog-content-wrapper" style="padding: 20px">
+                            {% image post.specific.blog_image fill-500x200 as blog_img %}
+                            <a href="{% pageurl post %}">
+                                <!-- create box with blog image inside. if no blog image set, use a default -->
+                                <div class="blog-post">
+                                    {% if blog_img %}
+                                        <img src="{{ blog_img.url }}" alt="{{ blog_img.alt }}" class="max-auto rounded-image">
+                                    {% else %}
+                                        <img src="/static/default_image.png" alt="Default Image" class="max-auto rounded-image">
+                                    {% endif %}
+                                </div>
+                            </a>
+                            <a href="{% pageurl post %}">
+                                <h2>{{ post.title }}</h2>
+                            </a>
+                            <h5 class="section-subheading text-muted">
+                                {{ post.specific.date }}
+                            </h5>
+                            <p>
+                                {{ post.specific.summary }} ... <br>
+                            </p>
+                            <a href="{% pageurl post %}">
+                                <button class="btn btn-primary btn-xs">Read More »</button>
+                            </a>
+                    </div>
+    </div>
+    {% endfor %}
+</div>
+<!-- START Pagination  -->
+<div class="container mt-5 mb-5" >
+    <div class="row">
+        <div class="col-lg-12">
+            
+            {% if posts.paginator.num_pages > 1%}
+            <div class="pagination justify-content-center" >
+                    
+                {% if posts.has_previous %} 
+                    <li class="page-item">
+                        <a href="?page={{ posts.previous_page_number}}" class="page-link">
+                            <span>&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for page_num in posts.paginator.page_range %}
+                    <li class="page-item {% if page_num == posts.number %} active {% endif %}">
+                        <a href="?page={{ page_num }}" class="page-link">
+                            {{ page_num }}
+                        </a>
+                    </li>
+                {% endfor %}
+
+                {% if posts.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{ posts.next_page_number }}" class="page-link">
+                            <span>&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
