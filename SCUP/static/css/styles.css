@@ -123,7 +123,7 @@ h2, .h2 {
 }
 @media (min-width: 1200px) {
   h2, .h2 {
-    font-size: 2rem;
+    font-size: 1.7rem;
   }
 }
 
@@ -658,12 +658,14 @@ progress {
 }
 @media (min-width: 1200px) {
   .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1140px;
+    max-width: 2300px; 
+    /* originally 1140 */
   }
 }
 @media (min-width: 1400px) {
   .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1320px;
+    max-width: 2300px;
+    /* originally 1320 */
   }
 }
 .row {
@@ -5623,7 +5625,8 @@ textarea.form-control-lg {
 }
 @media (min-width: 1200px) {
   .modal-xl {
-    max-width: 1140px;
+    max-width: 2300px;
+    /* originally 1140 */
   }
 }
 .modal-fullscreen {
@@ -7494,6 +7497,11 @@ textarea.form-control-lg {
 .py-5 {
   padding-top: 3rem !important;
   padding-bottom: 3rem !important;
+}
+
+.display-6 {
+  padding-top: 5rem !important;
+  padding-bottom: 5em !important;
 }
 
 .pt-0 {
@@ -11305,10 +11313,10 @@ p {
 }
 
 .page-section {
-  padding: 6rem 0;
+  padding: 3rem 0;
 }
 .page-section h2.section-heading, .page-section .section-heading.h2 {
-  font-size: 2.5rem;
+  font-size: 2.0rem;
   margin-top: 0;
   margin-bottom: 1rem;
 }
@@ -11383,7 +11391,8 @@ p {
     transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
   }
   #mainNav .navbar-brand {
-    font-size: 1.5em;
+    font-size: 2rem;
+    /* font-size: 1.5em; */
     transition: font-size 0.3s ease-in-out;
   }
   #mainNav .navbar-brand img {
@@ -11396,11 +11405,13 @@ p {
     background-color: #212529;
   }
   #mainNav.navbar-shrink .navbar-brand {
-    font-size: 1.25em;
+    font-size: 1.8rem;
+    /* font-size: 1.25em; */
   }
   #mainNav.navbar-shrink .navbar-brand svg,
 #mainNav.navbar-shrink .navbar-brand img {
-    height: 1.5rem;
+    height: 2.3rem;
+    /* height: 1.5rem; */
   }
   #mainNav .navbar-nav .nav-item {
     margin-right: 1rem;
@@ -11437,8 +11448,8 @@ header.masthead .masthead-heading {
 
 @media (min-width: 768px) {
   header.masthead {
-    padding-top: 10rem;
-    padding-bottom: 5rem;
+    padding-top: 5rem;
+    padding-bottom: 1rem;
   }
   header.masthead .masthead-subheading {
     font-size: 2.25rem;
@@ -11447,7 +11458,7 @@ header.masthead .masthead-heading {
     margin-bottom: 2rem;
   }
   header.masthead .masthead-heading {
-    font-size: 4.5rem;
+    font-size: 2.5rem;
     font-weight: 700;
     line-height: 4.5rem;
     margin-bottom: 4rem;
@@ -11712,14 +11723,60 @@ header.masthead .masthead-heading {
   text-align: center;
 }
 .team-member img {
-  width: 22rem;
-  height: 14rem;
-  border: 0.5rem solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: auto;
+  border: 0.4rem solid rgba(0, 0, 0, 0.1);
+  min-width: 200px; 
+  max-width: 400px;
 }
 .team-member h4, .team-member .h4 {
   margin-top: 1.5rem;
   margin-bottom: 0;
 }
+
+/*  */
+.team-logo-head {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+.team-logo-head img {
+  width: 100%;
+  height: auto;
+  border: 0.4rem solid rgba(0, 0, 0, 0.1);
+  min-width: 200px; 
+  max-width: 700px;
+}
+.team-logo-head h4, .team-logo-head .h4 {
+  /* margin-top: 1.5rem; */
+  margin-bottom: 0;
+}
+
+.team-human {
+margin-bottom: 3rem;
+text-align: center;
+}
+.team-human img {
+width: 100%;
+height: auto;
+border: 0.4rem solid rgba(0, 0, 0, 0.1);
+min-width: 100px; 
+max-width: 300px;
+}
+
+.blog-post {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+.blog-post-img {
+  width: 80%;
+  height: auto;
+  border: 0.2rem solid rgba(0, 0, 0, 0.1);
+}
+.blog-post h4, .blog-post .h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+/*  */
 
 .img-brand {
   height: 2.75rem;
@@ -11783,4 +11840,31 @@ section#contact form#contactForm :-ms-input-placeholder {
   text-align: center;
   font-size: 0.9rem;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+
+.parent-links li {
+  display: inline;
+}
+
+.parent-links li:not(:last-child):after {
+  content: " / ";
+}
+
+.separator-r{
+  border-right: 3px solid;
+  border-color: #dee2e6;
+  /* border-color:  #f8f7f5; */
+}
+.separator-l{
+  border-left: 3px solid;
+  border-color:  #dee2e6;
+}
+.align-vertical{
+  display: flex;
+  align-items: center;
+}
+.aboutsection{
+  padding-left:5rem;
+  padding-right:5rem;
 }

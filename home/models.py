@@ -5,10 +5,10 @@ from wagtail.fields import RichTextField
 #from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.panels import FieldPanel
 from wagtailvideos.edit_handlers import VideoChooserPanel
+from blog.models import BlogPage
 
 
 class HomePage(Page):
-    About_GDC = RichTextField(blank=True)
 
     Section1_Header = RichTextField(blank=True)
     Section1_Content = RichTextField(blank=True)
@@ -28,6 +28,7 @@ class HomePage(Page):
     mosaic_bio = RichTextField(blank=True)
     nemisis_bio = RichTextField(blank=True)
     tps_bio = RichTextField(blank=True)
+    rem_bio = RichTextField(blank=True)
     instruments_lower_bio = RichTextField(blank=True)
 
     timeline_bio = RichTextField(blank=True)
@@ -85,6 +86,13 @@ class HomePage(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    rem_logo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     timeline_1_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -121,6 +129,7 @@ class HomePage(Page):
         FieldPanel('mosaic_logo'),
         FieldPanel('nemisis_logo'),
         FieldPanel('tps_logo'),
+        FieldPanel('rem_logo'),
         FieldPanel('timeline_1_image'),
         FieldPanel('timeline_2_image'),
         FieldPanel('timeline_3_image'),
@@ -128,7 +137,6 @@ class HomePage(Page):
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('About_GDC'),
         FieldPanel('Section1_Header'),
         FieldPanel('Section1_Content'),
         FieldPanel('Section2_Header'),
@@ -146,6 +154,7 @@ class HomePage(Page):
         FieldPanel('mosaic_bio'),
         FieldPanel('nemisis_bio'),
         FieldPanel('tps_bio'),
+        FieldPanel('rem_bio'),
         FieldPanel('instruments_lower_bio'),
         FieldPanel('timeline_bio'),
         FieldPanel('timeline_1_date'),
@@ -164,3 +173,9 @@ class HomePage(Page):
         VideoChooserPanel('gdc_about_video')
     ]
 
+
+    def get_context (self,request,*args,**kwargs):
+        context = super().get_context(request,*args,**kwargs)
+        news = BlogPage.objects.live().order_by('-first_published_at')[:3]
+        context["news"] = news
+        return context
