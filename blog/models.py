@@ -59,7 +59,42 @@ class BlogIndexPage(Page):
 
 class BlogPage(Page):
     date = models.DateField("Post date")
-    summary = models.CharField(max_length=500, null=True)
+    summary = RichTextField(
+        max_length=500, 
+        null=True,
+        features=['bold', 
+                  'italic', 
+                  'underline', 
+                  'link', 
+                  'fontsize',
+                  'h2', 
+                  'h3', 
+                  'superscript', 
+                  'subscript', 
+                  'ul', 
+                  'ol', 
+                  'hr', 
+                  'strikethrough',
+                  ], 
+        )
+    subtitle = RichTextField(
+        features=['bold', 
+                  'italic', 
+                  'underline', 
+                  'link', 
+                  'fontsize',
+                  'h2', 'h3', 
+                  'superscript', 
+                  'subscript', 
+                  'ul', 
+                  'ol', 
+                  'hr', 
+                  'strikethrough',
+                  ], 
+        blank=True, 
+        null=True,
+        default=""  # Set default to an empty string
+    )
     body = RichTextField(blank=True)
     blog_image = models.ForeignKey(
         "wagtailimages.Image",
@@ -77,11 +112,13 @@ class BlogPage(Page):
 
 
     promote_panels = Page.promote_panels + [ 
-        FieldPanel('summary'),
     ]
 
     content_panels = Page.content_panels + [
         FieldPanel('date'),
+        FieldPanel('subtitle'),
         FieldPanel('blog_image'),
+        FieldPanel('summary'),
         FieldPanel('body'),
+
     ]
