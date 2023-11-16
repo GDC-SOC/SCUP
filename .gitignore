@@ -151,3 +151,4 @@ media/original_images
 
 # VS Code Workspace
 *.code-workspace
+apache_logs/logs

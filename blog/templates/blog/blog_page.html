@@ -32,13 +32,19 @@
 <!-- Blog Post -->
 <p style="margin-bottom:1cm;"></p>
 <div class = "container"> 
-    <div class="container" style="text-align: center;">
-        {% image page.blog_image width-400 %}
-    </div>
-    <h1>
+<div style="width: 100%; overflow: hidden;">
+    {% image page.blog_image fill-1920x600 as img %}
+    <img src="{{ img.url }}" alt="{{ img.alt }}" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+</div>
+    <h1 style="text-align: center;">
         {{ page.title }}
     </h1>
-    <h5 class="section-subheading text-muted">
+    {% if page.subtitle %}
+        <h2 style="text-align: center;">
+            {{ page.subtitle|richtext }}
+        </h2>
+    {% endif %}
+    <h5 class="section-subheading text-muted" style="text-align: center">
         {{ page.date }}
     </h5>
     {{ page.body|richtext }}
