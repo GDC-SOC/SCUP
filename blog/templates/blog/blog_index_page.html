@@ -57,7 +57,7 @@
                                 {{ post.specific.date }}
                             </h5>
                             <p>
-                                {{ post.specific.summary }} ... <br>
+                                {{ post.specific.summary|richtext }} ... <br>
                             </p>
                             <a href="{% pageurl post %}">
                                 <button class="btn btn-primary btn-xs">Read More »</button>
