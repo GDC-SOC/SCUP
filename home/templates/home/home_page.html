@@ -28,6 +28,7 @@
             <div class="row mt-5 mb-5" style="padding:40px">
                 <!-- create box with blog image inside. if no blog image set, use a default -->
                 <div class="col-md-5">
+                    {% image post.specific.blog_image fill-500x200 as blog_img %}
                     {% if blog_img %}
                         <img src="{{ blog_img.url }}" alt="{{ blog_img.alt }}" class="mx-auto rounded-image blog-post">
                     {% else %}
@@ -42,7 +43,7 @@
                     {{ post.specific.date }}
                     </h5>
                     <p>
-                    {{ post.specific.summary }} ...
+                    {{post.specific.summary|richtext }} ...
                     </p>
                     <a class="btn btn-primary btn-xs" href="{% pageurl post %}">
                     Read More »
