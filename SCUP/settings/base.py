@@ -16,7 +16,7 @@ import os, json
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-SETTINGS_JSON = os.path.join(BASE_DIR, 'SCUP', 'settings', 'settings.json')
+SETTINGS_JSON = os.path.join(BASE_DIR, 'SCUP', 'settings', 'settings_new.json')
 with open(SETTINGS_JSON) as settings_f:
     SETTINGS_JSON_PARSED = json.load(settings_f)
 
@@ -97,14 +97,13 @@ WSGI_APPLICATION = "SCUP.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": SETTINGS_JSON_PARSED["ENGINE"], 
         "NAME": SETTINGS_JSON_PARSED["PGDB"],
         "USER": SETTINGS_JSON_PARSED["PGUSER"],
         "PASSWORD": SETTINGS_JSON_PARSED["PGPASS"],
         "HOST": SETTINGS_JSON_PARSED["PGHOST"],
-        "PORT": SETTINGS_JSON_PARSED["PGPORT"]
-    }
-}
+        "PORT": SETTINGS_JSON_PARSED["PGPORT"],
+}}
 
 
 # Password validation
