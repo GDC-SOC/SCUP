@@ -7927,6 +7927,9 @@ textarea.form-control-lg {
 }
 
 .rounded-image {
+  max-width: 100%; 
+  height: auto; 
+  aspect-ratio: 4/2;
   border-radius: 3.25rem !important;
 }
 
@@ -11764,21 +11767,28 @@ max-width: 300px;
 }
 
 .blog-post {
+  max-width: 100%; 
+  height: auto; 
+  aspect-ratio: 4/2;
   margin-bottom: 3rem;
   text-align: center;
 }
 .blog-post-img {
-  width: 80%;
+  max-width: 100%; 
   height: auto;
+  aspect-ratio: 4/2;
   border: 0.2rem solid rgba(0, 0, 0, 0.1);
 }
 .blog-post h4, .blog-post .h4 {
+  max-width: 100%; 
+  height: auto;
   margin-top: 1.5rem;
   margin-bottom: 0;
 }
 /*  */
 
 .img-brand {
+  max-width: 100%; 
   height: 2.75rem;
 }
 
