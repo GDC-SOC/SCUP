@@ -130,6 +130,7 @@ dmypy.json
 
 # Settings JSON
 settings.json
+settings_new.json
 
 # Apache conf
 conf/*
@@ -151,4 +152,6 @@ media/original_images
 
 # VS Code Workspace
 *.code-workspace
+
+# Apache Logs
 apache_logs/logs

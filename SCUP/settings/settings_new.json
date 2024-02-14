@@ -4,11 +4,9 @@
     "SECRET_KEY": "%g6+6!v8imkj1^c&zj#i%#0_inc)3f!sjke-!fha=ewq",
     "PGDB": "mysql_db",
     "PGUSER": "gdcsocadmin",
-    "PGPASS": "administration4gdcSOCbrah",
+    "PGPASS": "tXmOd0FTaq7N59Q07h0b",
     "PGHOST": "mysql-gdc-scup.cqqyazj1bros.us-east-1.rds.amazonaws.com",
     "PGPORT": "3306",
-    "AWSKEY": "AKIARCZDGCTCDABC3K4A",
-    "AWSSECRET": "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",
     "CSRF_TRUSTED_ORIGINS": [
         "https://127.0.0.1",
         "https://localhost",
