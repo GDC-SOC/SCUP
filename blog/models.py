@@ -4,6 +4,9 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel
+from wagtail.fields import StreamField
+from wagtail import blocks
+from wagtail.images.blocks import ImageChooserBlock
 
 from wagtail.search import index
 
@@ -77,24 +80,7 @@ class BlogPage(Page):
                   'strikethrough',
                   ], 
         )
-    subtitle = RichTextField(
-        features=['bold', 
-                  'italic', 
-                  'underline', 
-                  'link', 
-                  'fontsize',
-                  'h2', 'h3', 
-                  'superscript', 
-                  'subscript', 
-                  'ul', 
-                  'ol', 
-                  'hr', 
-                  'strikethrough',
-                  ], 
-        blank=True, 
-        null=True,
-        default=""  # Set default to an empty string
-    )
+        
     body = RichTextField(blank=True)
     blog_image = models.ForeignKey(
         "wagtailimages.Image",
@@ -102,7 +88,15 @@ class BlogPage(Page):
         null=True,
         related_name="+",
         on_delete=models.SET_NULL
-    ) 
+    )
+
+    stream_body = StreamField([
+        ('paragraph', blocks.RichTextBlock(null=True)),
+        ('captioned_image', blocks.StructBlock([
+            ('picture', ImageChooserBlock(required=False)),
+            ('caption', blocks.RichTextBlock(max_length=255))
+        ]))
+    ])
     
 
     search_fields = Page.search_fields + [
@@ -116,9 +110,9 @@ class BlogPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('date'),
-        FieldPanel('subtitle'),
         FieldPanel('blog_image'),
         FieldPanel('summary'),
         FieldPanel('body'),
+        FieldPanel('stream_body')
 
     ]

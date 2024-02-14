@@ -47,7 +47,18 @@
     <h5 class="section-subheading text-muted" style="text-align: center">
         {{ page.date }}
     </h5>
-    {{ page.body|richtext }}
+    {% for block in page.stream_body %}
+        {% if block.block_type == 'paragraph' %}
+            <p style="text-align: center;">
+                {{ block.value }}
+            </p>
+        {% elif block.block_type == 'captioned_image' %}
+            <div class="captioned_photo">
+                {% image block.value.picture width-400 %}
+                <p> {{ block.value.caption }} </p>
+            </div>
+        {% endif %}
+    {% endfor %}
 </div>
 <!-- RETURN TO NEWS BUTTON -->
 <p class="text-center"> 
