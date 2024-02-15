@@ -91,10 +91,10 @@ class BlogPage(Page):
     )
 
     stream_body = StreamField([
-        ('paragraph', blocks.RichTextBlock(null=True)),
+        ('rich_text', blocks.RichTextBlock(null=True)),
         ('captioned_image', blocks.StructBlock([
             ('picture', ImageChooserBlock(required=False)),
-            ('caption', blocks.RichTextBlock(max_length=255))
+            ('caption', blocks.RichTextBlock(max_length=500))
         ]))
     ])
     

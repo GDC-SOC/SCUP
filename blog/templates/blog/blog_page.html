@@ -36,6 +36,7 @@
     {% image page.blog_image fill-1920x600 as img %}
     <img src="{{ img.url }}" alt="{{ img.alt }}" style="width: 100%; height: auto; display: block; margin: 0 auto;">
 </div>
+<div class="blog-card"> 
     <h1 style="text-align: center;">
         {{ page.title }}
     </h1>
@@ -48,12 +49,12 @@
         {{ page.date }}
     </h5>
     {% for block in page.stream_body %}
-        {% if block.block_type == 'paragraph' %}
-            <p style="text-align: center;">
+        {% if block.block_type == 'rich_text' %}
+            <p class="blog-richtext">
                 {{ block.value }}
             </p>
         {% elif block.block_type == 'captioned_image' %}
-            <div class="captioned_photo">
+            <div class="blog-captioned-image">
                 {% image block.value.picture width-400 %}
                 <p> {{ block.value.caption }} </p>
             </div>

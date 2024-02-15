@@ -11878,3 +11878,23 @@ section#contact form#contactForm :-ms-input-placeholder {
   padding-left:5rem;
   padding-right:5rem;
 }
+.blog-card{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  width: 80%;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5%;
+}
+.blog-richtext{
+  align-items: left;
+}
+
+.blog-image{
+  margin: auto;
+}
+
+.blog-image-caption{
+  font-size: 0.875em;
+  color: #6c757d;
+}
