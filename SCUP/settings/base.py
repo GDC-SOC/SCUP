@@ -55,7 +55,9 @@ INSTALLED_APPS = [
     "blog",
     "rest_framework",
     "wagtail.contrib.table_block",
-    "objectives"
+    "objectives",
+    "wagtail_modeladmin",
+    "wagtail.contrib.search_promotions"
 ]
 
 MIDDLEWARE = [
