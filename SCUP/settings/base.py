@@ -12,17 +12,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os, json
+from secrets_manager import SCUPSecrets
+
+settings_secrets_client = SCUPSecrets()
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
-
-SETTINGS_JSON = os.path.join(BASE_DIR, 'SCUP', 'settings', 'settings_new.json')
-with open(SETTINGS_JSON) as settings_f:
-    SETTINGS_JSON_PARSED = json.load(settings_f)
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
 
 # Application definition
 
@@ -97,12 +92,12 @@ WSGI_APPLICATION = "SCUP.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": SETTINGS_JSON_PARSED["ENGINE"], 
-        "NAME": SETTINGS_JSON_PARSED["PGDB"],
-        "USER": SETTINGS_JSON_PARSED["PGUSER"],
-        "PASSWORD": SETTINGS_JSON_PARSED["PGPASS"],
-        "HOST": SETTINGS_JSON_PARSED["PGHOST"],
-        "PORT": SETTINGS_JSON_PARSED["PGPORT"],
+        "ENGINE": settings_secrets_client.dbengine,
+        "NAME": settings_secrets_client.dbname,
+        "USER": settings_secrets_client.pguser,
+        "PASSWORD": settings_secrets_client.pgpass,
+        "HOST": settings_secrets_client.pghost,
+        "PORT": settings_secrets_client.pgport,
 }}
 
 
@@ -179,7 +174,7 @@ WAGTAILSEARCH_BACKENDS = {
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = "http://gdc.smce.nasa.gov"
 
-CSRF_TRUSTED_ORIGINS = SETTINGS_JSON_PARSED["CSRF_TRUSTED_ORIGINS"]
+CSRF_TRUSTED_ORIGINS = settings_secrets_client.csrf_trusted_origins
 
 
 # Setting up logging
