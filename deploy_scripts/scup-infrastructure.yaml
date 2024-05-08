@@ -1,0 +1,193 @@
+Description: Deploys all infrastructure components required by SCUP.
+
+Parameters:
+
+  DeployEnvironment:
+    Type: String
+    Description: Environment to build for - one of prod, test, or dev
+    Default: 'prod'
+    AllowedPattern: "^(prod|test|dev)$"
+
+Resources:
+
+  GitHubConnection:
+    Type: AWS::CodeStarConnections::Connection
+    Properties:
+      ConnectionName: !Sub ${AWS::StackName}-GitHubConnection
+      ProviderType: GitHub
+
+  SCUPCodePipelineArtifactsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: scup-codepipeline-artifacts
+
+  SCUPCodeDeployArtifactsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: scup-codedeploy-artifacts
+
+  SCUPCodePipelineServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Description: Service role to be used with the SCUP CodePipeline
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - "codepipeline.amazonaws.com"
+            Action:
+              - sts:AssumeRole
+        Policies:
+          - PolicyName: S3CodebuildAccess
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - s3:GetObject
+                    - s3:GetObjectVersion
+                    - s3:GetObjectVersioning
+                    - s3:PutObject
+                  Resource:
+                    - !GetAtt SCUPCodePipelineArtifactsBucket.Arn
+                    - !Sub ${SCUPCodePipelineArtifactsBucket.Arn}/*
+                - Effect: Allow
+                  Action:
+                    - codebuild:BatchGetBuilds
+                    - codebuild:StartBuild
+                  Resource:
+                    - "*"
+                - Effect: Allow
+                  Action:
+                    - codestar-connections:UseConnection
+                  Resource:
+                    - !Ref GitHubConnection
+  
+  SCUPCodeDeployServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Description: Service role to be used with the SCUP CodeDeploy
+      AssumePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - codedeploy.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole
+
+  SCUPLightsailCodeDeployUsers:
+    Type: AWS::IAM::Group
+    Properties:
+      GroupName: SCUPLightsailCodeDeployUsers
+      Policies:
+        - PolicyName: CodeDeployLightsailPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:Get*
+                  - s3:List*
+                Resource:
+                  - arn:aws:s3:::scup-*/*
+                  - arn:aws:s3:::aws-codedeploy-us-east-2/*
+                  - arn:aws:s3:::aws-codedeploy-us-east-1/*
+                  - arn:aws:s3:::aws-codedeploy-us-west-2/*
+                  - arn:aws:s3:::aws-codedeploy-us-west-1/*
+
+  SCUPDeploymentGroup:
+    Type: AWS::CodeDeploy::DeploymentGroup
+    Properties:
+      DeploymentGroupName: scup-deployment-group
+      ApplicationName: scup
+      DeploymentStyle:
+        DeploymentType: IN_PLACE
+        DeploymentOption: WITHOUT_TRAFFIC_CONTROL
+      DeploymentConfigName: CodeDeployDefault.OneAtATime
+      OnPremisesInstanceTagFilters:
+        - Key: Environment
+          Value: !Ref DeploymentEnvironment
+          Type: KEY_AND_VALUE
+      ServiceRoleArn: !GetAtt SUPCodeDeploySerivceRole.Arn
+
+  SCUPCodePipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      ArtifactStore:
+        Location: !Ref SCUPCodePipelineArtifactsBucket
+        Type: S3
+      Name: scup-codepipeline
+      PipelineType: V1
+      RoleArn: !GetAtt SCUPCodePipelineServiceRole.Arn
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: GitHub
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Provider: CodeStarSourceConnection
+                Version: "1"
+              OutputArtifacts:
+                - Name: SCUPSourceCode
+              Configuration:
+                ConnectionArn: !Ref GitHubConnection
+                FullRepositoryId: GDC-SOC/SCUP
+                Branch: !Ref DeployEnvironment
+        - Name: Build
+          Actions:
+            - Name: Build
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Version: "1"
+                Provider: CodeBuild
+              InputArtifacts:
+                - Name: SCUPSourceCode
+      Triggers:
+        - ProviderType: CodeStarSourceConnection
+          GitConfiguration:
+            Push:
+              Branches:
+                Includes:
+                  - *
+      Tags:
+        - Key: Environment
+          Value: !Ref DeployEnvironment
+
+  SCUPCodeDeploy:
+    Type: AWS::CodeDeploy::Application
+    Properties:
+      ApplicationName: scup-codedeploy
+      ComputePlatform: Server
+
+  SCUP:
+    Type: AWS::Lightsail::Instance
+    Properties:
+      InstanceName: scup
+      AvailabilityZone: us-east-1a
+      BlueprintId: django_bitnami
+      BundleId: small_3_0
+      Networking:
+        Ports:
+          - CommonName: SSH
+            Protocol: TCP
+            FromPort: 22
+            ToPort: 22
+          - CommonName: HTTP
+            Protocol: TCP
+            FromPort: 80
+            ToPort: 80
+          - CommonName: HTTPS
+            Protocol: TCP
+            FromPort: 80
+            ToPort: 80
+      Tags:
+        - Key: Environment
+          Value: !Ref DeployEnvironment

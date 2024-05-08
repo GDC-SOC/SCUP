@@ -1,0 +1,25 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /opt/bitnami/projects/SCUP
+hooks:
+  BeforeInstall:
+    - location: deploy_scripts/pre_deploy.py
+      timeout: 6000
+      runas: root  # TODO is this safe?
+
+  AfterInstall:
+    - location: deploy_scripts/post_deploy.py
+      timeout: 6000
+      runas: root  # TODO is this safe?
+
+  ApplicationStart:
+    - location: deploy_scripts/ctlscript.py start
+      timeout: 6000
+      runas: ec2-user  # TODO scup-user?
+  
+  ApplicationStop:
+    - location: deploy_scripts/ctlscript.py stop
+      timeout: 6000
+      runas: ec2-user  # TODO scup-user?
