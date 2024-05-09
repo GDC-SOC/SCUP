@@ -1,3 +1,16 @@
+###############################################################################
+# Creates all the required infrastructure for running a SCUP instance. The
+# template is meant to be used as part of the CI/CD pipeline and can deploy
+# new versions of SCUP as 'prod', 'test', or 'dev' environments.
+#
+# Important Notes:
+#   1) The GitHub connection will be created in AWS from this template, but must
+#      still be manually configured/authenticated before use. This can be done
+#      by going to CodePipeline in the AWS console -> Settings (left-drawer) ->
+#      Connections -> select scup-github-connection and follow any remaining
+#      instructions
+###############################################################################
+
 Description: Deploys all infrastructure components required by SCUP.
 
 Parameters:
@@ -13,18 +26,18 @@ Resources:
   GitHubConnection:
     Type: AWS::CodeStarConnections::Connection
     Properties:
-      ConnectionName: !Sub ${AWS::StackName}-GitHubConnection
+      ConnectionName: scup-github-connection
       ProviderType: GitHub
 
   SCUPCodePipelineArtifactsBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: scup-codepipeline-artifacts
+      BucketName: !Join ["-", [scup, codepipeline, artifacts, !Ref DeployEnvironment]]
 
   SCUPCodeDeployArtifactsBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: scup-codedeploy-artifacts
+      BucketName: !Join ["-", [scup, codedeploy, artifacts, !Ref DeployEnvironment]]
 
   SCUPCodePipelineServiceRole:
     Type: AWS::IAM::Role
@@ -64,7 +77,7 @@ Resources:
                     - codestar-connections:UseConnection
                   Resource:
                     - !Ref GitHubConnection
-  
+
   SCUPCodeDeployServiceRole:
     Type: AWS::IAM::Role
     Properties:
@@ -84,7 +97,7 @@ Resources:
   SCUPLightsailCodeDeployUsers:
     Type: AWS::IAM::Group
     Properties:
-      GroupName: SCUPLightsailCodeDeployUsers
+      GroupName: !Join ["-", [scup, lightsail, codedeploy, users, !Ref DeployEnvironment]]
       Policies:
         - PolicyName: CodeDeployLightsailPolicy
           PolicyDocument:
@@ -104,8 +117,8 @@ Resources:
   SCUPDeploymentGroup:
     Type: AWS::CodeDeploy::DeploymentGroup
     Properties:
-      DeploymentGroupName: scup-deployment-group
-      ApplicationName: scup
+      DeploymentGroupName: !Join ["-", [scup, deployment, group, !Ref DeployEnvironment]]
+      ApplicationName: !Join ["-", [scup, !Ref DeployEnvironment]]
       DeploymentStyle:
         DeploymentType: IN_PLACE
         DeploymentOption: WITHOUT_TRAFFIC_CONTROL
@@ -113,6 +126,9 @@ Resources:
       OnPremisesInstanceTagFilters:
         - Key: Environment
           Value: !Ref DeploymentEnvironment
+          Type: KEY_AND_VALUE
+        - Key: Name
+          Value: scup
           Type: KEY_AND_VALUE
       ServiceRoleArn: !GetAtt SUPCodeDeploySerivceRole.Arn
 
@@ -122,7 +138,7 @@ Resources:
       ArtifactStore:
         Location: !Ref SCUPCodePipelineArtifactsBucket
         Type: S3
-      Name: scup-codepipeline
+      Name: !Join ["-", [scup, codepipeline, !Ref DeployEnvironment]]
       PipelineType: V1
       RoleArn: !GetAtt SCUPCodePipelineServiceRole.Arn
       Stages:
@@ -150,6 +166,20 @@ Resources:
                 Provider: CodeBuild
               InputArtifacts:
                 - Name: SCUPSourceCode
+        - Name: CloudFormation Deployment
+          Actions:
+            - Name: CloudFormation Deployment
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: CloudFromationStackSet
+                Version: "1"
+              Configuration:
+                StackSetName: !Join ["-", [scup-, !Ref DeployEnvironment]]
+                Description: Deploys the SCUP infrastructure CloudFormation template
+                TemplatePath: 'SCUPSourceCode::deploy_scripts/scup-infrastructure.yaml'
+              InputArtifacts:
+                - Name: SCUPSourceCode
       Triggers:
         - ProviderType: CodeStarSourceConnection
           GitConfiguration:
@@ -164,7 +194,7 @@ Resources:
   SCUPCodeDeploy:
     Type: AWS::CodeDeploy::Application
     Properties:
-      ApplicationName: scup-codedeploy
+      ApplicationName: !Join ["-", [scup, codedeploy, !Ref DeployEnvironment]]
       ComputePlatform: Server
 
   SCUP:
@@ -191,3 +221,5 @@ Resources:
       Tags:
         - Key: Environment
           Value: !Ref DeployEnvironment
+        - Key: Name
+          Value: scup
