@@ -1,0 +1,43 @@
+###############################################################################
+# Constructs a new SCUP instance. Note this YAML only creates the Lightsail
+# instance and NOT any of the other infrastructure (ex: CodeDeploy, CodePipeline,
+# etc.)
+###############################################################################
+
+Description: Deploys a new SCUP instance.
+
+Parameters:
+
+  DeployEnvironment:
+    Type: String
+    Description: Environment to build for - one of prod, test, or dev
+    Default: 'prod'
+    AllowedPattern: "^(prod|test|dev)$"
+
+Resources:
+SCUP:
+    Type: AWS::Lightsail::Instance
+    Properties:
+      InstanceName: scup
+      AvailabilityZone: us-east-1a
+      BlueprintId: django_bitnami
+      BundleId: small_3_0
+      Networking:
+        Ports:
+          - CommonName: SSH
+            Protocol: TCP
+            FromPort: 22
+            ToPort: 22
+          - CommonName: HTTP
+            Protocol: TCP
+            FromPort: 80
+            ToPort: 80
+          - CommonName: HTTPS
+            Protocol: TCP
+            FromPort: 80
+            ToPort: 80
+      Tags:
+        - Key: Environment
+          Value: !Ref DeployEnvironment
+        - Key: Name
+          Value: scup

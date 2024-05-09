@@ -223,3 +223,13 @@ Resources:
           Value: !Ref DeployEnvironment
         - Key: Name
           Value: scup
+
+  # Nests the SCUP Lightsail instance CloudFormation template underneath the infrastructure
+  # to allow it to be used both alone and through a full-infrastructure deploy
+  # TODO not sure if this actually works the way I think it does
+  SCUPInstance:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: 'SCUPSourceCode::deploy_scripts/scup-infrastructure.yaml'
+      Parameters:
+        DeployEnvironment: !Ref DeployEnvironment
