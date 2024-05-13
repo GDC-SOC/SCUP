@@ -15,38 +15,10 @@ Parameters:
     AllowedPattern: "^(prod|test|dev)$"
 
 Resources:
-SCUP:
+  SCUP:
     Type: AWS::Lightsail::Instance
-    CreationPolicy:
-      ResourceSignal:
-        Count: 1
-        Timeout: PT5M
-    Metadata:
-      AWS::CloudFormation::Init:
-        config:
-          packages:
-            yum:
-              ruby:
-                -
-          files:
-            /home/bitnami/install:
-              source: !Join
-                - ""
-                - - "https://aws-codedeploy-"
-                  - !Ref "AWS::Region"
-                  - ".s3.amazonaws.com/latest/install"
-              mode: 000755
-          commands:
-            00-install-agent:
-              command: ./install auto
-              cwd: /home/bitnami
-            01-cfn-signal:
-              command: !Join
-                - ""
-                - - "/opt/aws/bin/cfn-signal -e 0 --stack "
-                  - !Ref "AWS::StackName"
     Properties:
-      InstanceName: scup
+      InstanceName: scup-testing
       AvailabilityZone: us-east-1a
       BlueprintId: django_bitnami
       BundleId: small_3_0
@@ -70,15 +42,12 @@ SCUP:
         - Key: Name
           Value: scup
       UserData:
-        !Join 
-        - ""
-        - - "#!/bin/bash\n"
-          - "yum -y update\n"
-          - "yum -y install cfn-bootstrap\n"
-          - "/opt/aws/bin/cfn-init -v"
-          - " --stack "
-          - !Ref "AWS::StackName"
-          - " --resource SCUP"
-          - " --region "
-          - !Ref "AWS::Region" 
-          - "\n"
+        !Join |
+          - sudo apt-get update
+          - sudo apt-get upgrade
+          - sudo apt-get install ruby
+          - sudo apt-get install wget
+          - wget https://aws-codedeploy-us-west-2.s3.amazonaws.com/latest/install
+          - sudo chmod +x ./install
+          - sudo ./install auto
+          - sudo service codedeploy-agent start

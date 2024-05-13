@@ -1,0 +1,54 @@
+###############################################################################
+# Constructs a new SCUP instance. Note this YAML only creates the Lightsail
+# instance and NOT any of the other infrastructure (ex: CodeDeploy, CodePipeline,
+# etc.)
+# Following article was used as a reference for building the EC2 similar to
+# a Lightsail instance: https://aws.amazon.com/blogs/startups/migrating-web-services-from-amazon-lightsail-to-ec2/
+###############################################################################
+
+Description: Deploys a new EC2 instance for SCUP including all directly-related infrastructure components.
+
+Parameters:
+
+  DeployEnvironment:
+    Type: String
+    Description: Environment to build for - one of prod, test, or dev
+    Default: 'prod'
+    AllowedPattern: "^(prod|test|dev)$"
+
+Resources:
+  SCUPVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      # TODO
+
+  SCUPTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      # TODO
+
+  SCUPALB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      # TODO
+
+  SCUPSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      # TODO
+
+  SCUPLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      # TODO
+
+  SCUPAutoScaling:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      # TODO
+
+  SCUPEC2:
+    Type: AWS::EC2::Instance
+    Properties:
+      # TODO
+  
