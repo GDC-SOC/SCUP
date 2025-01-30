@@ -3,7 +3,7 @@ name: Check HTTP to HTTPS Redirection
 on:
   push:
     branches:
-      - GDCG-479  # Change this to your primary branch if needed
+      - main  # Change this to your primary branch if needed
 
 jobs:
   test_redirect:
