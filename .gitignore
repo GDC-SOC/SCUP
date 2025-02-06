@@ -142,7 +142,7 @@ static/*
 # Django migrations
 home/migrations/*
 SCUP/migrations/*
-blog/micrations/*
+blog/migrations/*
 migrations/*
 data/migrations/*
 instrument/migrations/*
