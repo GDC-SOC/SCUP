@@ -1,3 +1,7 @@
-Django==4.1
-wagtail==4.2
-wagtailvideos==4.0.1
+python==3.8.13
+Django==4.2.19
+wagtail==6.2.3
+wagtail-modeladmin==2.1.0
+wagtailvideos==7.0.2
+django-otp 
+qrcode

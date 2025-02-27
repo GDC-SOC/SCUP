@@ -6,17 +6,26 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
+from two_factor.urls import urlpatterns as tf_urls
+from wagtail_auth.views import WagtailOTPLoginView  # Import the custom login view
+
 from search import views as search_views
 
 from .api import api_router
 
 urlpatterns = [
     path("django-admin/", admin.site.urls),
-    path("admin/", include(wagtailadmin_urls)),
+    
+    # Override Wagtail's default login with django-otp
+    path("admin/login/", WagtailOTPLoginView.as_view(), name="wagtailadmin_login"), 
+    
+    path("admin/", include(wagtailadmin_urls)),  # Wagtail Admin
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
+    
+    # Enable two-factor authentication views
+    path("", include(tf_urls)),  
 ]
-
 
 if settings.DEBUG:
     from django.conf.urls.static import static
@@ -28,10 +37,12 @@ if settings.DEBUG:
 
 urlpatterns = urlpatterns + [
     path("api/v2/", api_router.urls),
+    
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
     path("", include(wagtail_urls)),
+    
     # Alternatively, if you want Wagtail pages to be served from a subpath
     # of your site, rather than the site root:
     #    path("pages/", include(wagtail_urls)),

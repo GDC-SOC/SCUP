@@ -53,9 +53,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "blog",
+    "wagtail_auth",
     "rest_framework",
     "wagtail.contrib.table_block",
-    "objectives"
+    "objectives",
+    'django_otp',
+    'django_otp.plugins.otp_totp',  # TOTP (Google Authenticator, Authy)
+    'django_otp.plugins.otp_static',  # Backup codes
+    'two_factor',
 ]
 
 MIDDLEWARE = [
@@ -63,13 +68,23 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django_otp.middleware.OTPMiddleware",  # OTP Middleware
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
+AUTHENTICATION_BACKENDS = [
+    # "two_factor.auth_backends.TwoFactorAuthenticationBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+LOGIN_URL = 'two_factor:login'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 ROOT_URLCONF = "SCUP.urls"
+
+LOGIN_REDIRECT_URL = '/admin/'
 
 TEMPLATES = [
     {

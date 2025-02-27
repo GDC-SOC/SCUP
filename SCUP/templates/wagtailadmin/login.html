@@ -1,0 +1,93 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{% trans "Sign in" %}{% endblock %}
+{% block bodyclass %}login{% endblock %}
+
+{% block furniture %}
+    <main class="content-wrapper" id="main">
+        <h1>{% block branding_login %}{% trans "Sign in to GDC SCUP Content Management" %}{% endblock %}</h1>
+
+        <!-- {# Debugging Info - REMOVE THIS AFTER TESTING #}
+        <div style="background: #ffdd57; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+            <strong>DEBUG INFO:</strong><br>
+            wizard: {% if wizard %}✅ Exists{% else %}❌ Not Found{% endif %}<br>
+            form: {% if form %}✅ Exists{% else %}❌ Not Found{% endif %}
+        </div> -->
+
+        <div class="messages" role="status">
+            {# Always show messages div so it can be appended to by JS #}
+            {% if messages or form.errors %}
+                <ul>
+                    {% if form.errors %}
+                        {% for error in form.non_field_errors %}
+                            <li class="error">{{ error }}</li>
+                        {% endfor %}
+                    {% endif %}
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        {% block above_login %}{% endblock %}
+
+        <form class="login-form" action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off" novalidate>
+            {% block login_form %}
+                {% csrf_token %}
+
+                {% url 'wagtailadmin_home' as home_url %}
+                <input type="hidden" name="next" value="{{ next|default:home_url }}" />
+
+                {# If using django-otp (wizard), use the two-factor auth form #}
+                {% if wizard %}
+                    <!-- <p><strong>Using django-otp form:</strong></p> -->
+                    {{ wizard.management_form }}  <!-- Required for form wizard -->
+                    {{ wizard.form.as_p }}  <!-- Renders OTP fields when required -->
+                {% else %}
+                    <!-- <p><strong>Using Wagtail default login form:</strong></p> -->
+                    {% block fields %}
+                        {% formattedfield form.username %}
+                        {% formattedfield form.password %}
+
+                        {% if show_password_reset %}
+                            <a class="reset-password" href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten password?" %}</a>
+                        {% endif %}
+
+                        {% block extra_fields %}
+                            {% for field_name, field in form.extra_fields %}
+                                {% formattedfield field %}
+                            {% endfor %}
+                        {% endblock extra_fields %}
+
+                        {% include "wagtailadmin/shared/forms/single_checkbox.html" with label_classname="remember-me" name="remember" text=_("Remember me") %}
+                    {% endblock %}
+                {% endif %}
+
+            {% endblock %}
+
+            <footer class="form-actions">
+                {% block submit_buttons %}
+                    <button
+                        type="submit"
+                        class="button button-longrunning"
+                        data-controller="w-progress"
+                        data-action="w-progress#activate"
+                        data-w-progress-active-value="{% trans 'Signing in…' %}"
+                    >
+                        {% icon name="spinner" %}
+                        <em data-w-progress-target="label">{% trans 'Sign in' %}</em>
+                    </button>
+                {% endblock %}
+            </footer>
+        </form>
+
+        {% block below_login %}{% endblock %}
+
+        {% block branding_logo %}
+            <div class="login-logo">
+                {% include "wagtailadmin/logo.html" with wordmark="True" %}
+            </div>
+        {% endblock %}
+    </main>
+{% endblock %}
