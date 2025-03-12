@@ -56,11 +56,12 @@ INSTALLED_APPS = [
     "rest_framework",
     "wagtail.contrib.table_block",
     "objectives",
+    "wagtail_2fa",
     'django_otp',
     'django_otp.plugins.otp_totp',  # Time-based OTP (Google Authenticator)
     'django_otp.plugins.otp_static',  # Backup codes
     'django_otp.plugins.otp_email',  # Email-based OTP (optional)
-    'mfa',
+    # 'mfa', 
 ]
 
 MIDDLEWARE = [
@@ -69,6 +70,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware", 
     'django_otp.middleware.OTPMiddleware',  # Add OTP Middleware
+    'wagtail_2fa.middleware.VerifyUserMiddleware',
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -88,7 +90,7 @@ AUTHENTICATION_BACKENDS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
+WAGTAIL_2FA_REQUIRED = True
 LOGIN_URL = 'two_factor:login'
 
 ROOT_URLCONF = "SCUP.urls"
