@@ -10,11 +10,26 @@ from search import views as search_views
 
 from .api import api_router
 
+
+from django.contrib.auth.models import User
+
+from django_otp.admin import OTPAdminSite
+from django_otp.plugins.otp_totp.models import TOTPDevice
+from django_otp.plugins.otp_totp.admin import TOTPDeviceAdmin
+class OTPAdmin(OTPAdminSite):
+   pass
+
+admin_site = OTPAdmin(name='OTPAdmin')
+admin_site.register(User)
+admin_site.register(TOTPDevice, TOTPDeviceAdmin)
+
+
 urlpatterns = [
-    path("django-admin/", admin.site.urls),
+    path("django-admin/", admin_site.urls),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
+    # path("mfa/", include("mfa.urls")),
 ]
 
 

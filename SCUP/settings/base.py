@@ -55,19 +55,41 @@ INSTALLED_APPS = [
     "blog",
     "rest_framework",
     "wagtail.contrib.table_block",
-    "objectives"
+    "objectives",
+    'django_otp',
+    'django_otp.plugins.otp_totp',  # Time-based OTP (Google Authenticator)
+    'django_otp.plugins.otp_static',  # Backup codes
+    'django_otp.plugins.otp_email',  # Email-based OTP (optional)
+    'mfa',
 ]
 
 MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware", 
+    'django_otp.middleware.OTPMiddleware',  # Add OTP Middleware
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    'SCUP.middleware.EnforceAdmin2FA'
 ]
+
+# AUTHENTICATION_BACKENDS = [
+#     # 'django_otp.backends.OTPBackend',  # Ensures OTP authentication is processed
+#     'django.contrib.auth.backends.ModelBackend',  # Keeps Django's default authentication
+# ]
+
+AUTHENTICATION_BACKENDS = [
+    # "mfa.backends.MFAAuthBackend",  # MFA authentication backend
+    "django.contrib.auth.backends.ModelBackend",  # Default authentication backend
+]
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+LOGIN_URL = 'two_factor:login'
 
 ROOT_URLCONF = "SCUP.urls"
 
@@ -130,7 +152,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/New_York"
 
 USE_I18N = True
 
