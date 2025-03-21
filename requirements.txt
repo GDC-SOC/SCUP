@@ -5,3 +5,4 @@ wagtail-modeladmin==2.1.0
 wagtailvideos==7.0.2
 django-otp 
 qrcode
+wagtail-2fa
