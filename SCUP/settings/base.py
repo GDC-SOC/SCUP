@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     'django_otp.plugins.otp_totp',  # Time-based OTP (Google Authenticator)
     'django_otp.plugins.otp_static',  # Backup codes
     'django_otp.plugins.otp_email',  # Email-based OTP (optional)
-    # 'mfa', 
 ]
 
 MIDDLEWARE = [
@@ -78,13 +77,7 @@ MIDDLEWARE = [
     'SCUP.middleware.EnforceAdmin2FA'
 ]
 
-# AUTHENTICATION_BACKENDS = [
-#     # 'django_otp.backends.OTPBackend',  # Ensures OTP authentication is processed
-#     'django.contrib.auth.backends.ModelBackend',  # Keeps Django's default authentication
-# ]
-
 AUTHENTICATION_BACKENDS = [
-    # "mfa.backends.MFAAuthBackend",  # MFA authentication backend
     "django.contrib.auth.backends.ModelBackend",  # Default authentication backend
 ]
 
